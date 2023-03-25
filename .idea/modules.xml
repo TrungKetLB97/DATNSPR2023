@@ -2,7 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/DATNSPR2023.iml" filepath="$PROJECT_DIR$/.idea/DATNSPR2023.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ProjectFinal_master.iml" filepath="$PROJECT_DIR$/.idea/modules/ProjectFinal_master.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/ProjectFinal_master.app.unitTest.iml" />
     </modules>
   </component>
 </project>
