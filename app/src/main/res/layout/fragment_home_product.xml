@@ -59,7 +59,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_160sdp"
             android:backgroundTint="@color/gray_light"
             app:cardCornerRadius="@dimen/_16sdp"
             app:cardMaxElevation="@dimen/_8sdp"
@@ -68,7 +68,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp" />
 
         </androidx.cardview.widget.CardView>
 

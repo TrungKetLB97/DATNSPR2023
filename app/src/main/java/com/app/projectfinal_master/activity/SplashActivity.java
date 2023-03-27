@@ -17,9 +17,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.app.projectfinal_master.R;
 import com.app.projectfinal_master.data.DataLocalManager;
+import com.app.projectfinal_master.fragment.SignInFragment;
 import com.app.projectfinal_master.model.User;
 import com.app.projectfinal_master.utils.CheckStateNetwork;
-import com.app.projectfinal_master.utils.ReadJSONExample;
 import com.app.projectfinal_master.utils.VolleySingleton;
 
 import org.json.JSONArray;
@@ -37,7 +37,6 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         loadData();
-        createThreadLoadJsonAddress();
     }
 
     private void loadData() {
@@ -45,7 +44,7 @@ public class SplashActivity extends AppCompatActivity {
             //Network connected
             if (DataLocalManager.getUser() != null){
                 User user = DataLocalManager.getUser();
-                signIn(user.getEmail(), user.getPassword(), 1);
+                signIn(user.getEmail(), user.getPassword());
             }
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -61,22 +60,7 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    private void createThreadLoadJsonAddress() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    ReadJSONExample.readCityData(SplashActivity.this);
-                    ReadJSONExample.readDistrictData(SplashActivity.this);
-                    ReadJSONExample.readCommuneData(SplashActivity.this);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }).start();
-    }
-
-    private void signIn(final String email, final String password, final int request) {
+    private void signIn(final String email, final String password) {
         mStringRequest = new StringRequest(Request.Method.POST, LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -90,13 +74,13 @@ public class SplashActivity extends AppCompatActivity {
                         String idUser = object.getString("id_user");
                         String email = object.getString("email");
                         String password = object.getString("password");
-                        String username = object.getString("username");
+                        String nameUser = object.getString("name_user");
                         String phoneNumber = object.getString("phone_number");
-                        String address = object.getString("address");
+                        String avatar = object.getString("avatar");
                         String birth = object.getString("birth");
                         String sex = object.getString("sex");
 
-                        User user = new User(idUser, email, password, username, phoneNumber, address, birth, sex);
+                        User user = new User(idUser, email, password, nameUser, phoneNumber, avatar, birth, sex);
                         DataLocalManager.setUser(user);
                     }
 
@@ -117,7 +101,6 @@ public class SplashActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("email", email);
                 params.put("password", password);
-                params.put("request", String.valueOf(request));
                 return params;
             }
         };

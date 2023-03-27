@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.activity.result.ActivityResult;
@@ -32,32 +33,22 @@ public class SettingActivity extends AppCompatActivity {
         initView();
         getExistData();
         setEventClickProfile();
-        eventClickBackImg();
     }
 
     private void initView() {
         imgBack = findViewById(R.id.img_back);
         tvProfile = findViewById(R.id.tv_profile);
-        tvAddress = findViewById(R.id.tv_update_address);
-//        tvAccountManager = findViewById(R.id.tv_account_manager);
+        tvAddress = findViewById(R.id.tv_address);
+        tvAccountManager = findViewById(R.id.tv_account_manager);
         tvFeedback = findViewById(R.id.tv_feedback);
         tvFollow = findViewById(R.id.tv_follow);
         tvIntroduce = findViewById(R.id.tv_introduce);
         btnSignOut = findViewById(R.id.btn_sign_out);
     }
 
-    private void eventClickBackImg() {
-        imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-    }
-
     private void getExistData() {
         if (DataLocalManager.getUser() != null) {
-            tvProfile.setText(DataLocalManager.getUser().getUsername());
+            tvProfile.setText(DataLocalManager.getUser().getNameUser());
         }
     }
 

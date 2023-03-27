@@ -1,28 +1,20 @@
 package com.app.projectfinal_master.model;
 
 public class User {
-    String idUser, email, password, username, phone_number, address, birth, sex;
+    String idUser, email, password, nameUser, phone_number, avatar, birth, sex;
 
     public User() {
     }
 
-    public User(String idUser, String email, String password, String username, String phone_number, String address, String birth, String sex) {
+    public User(String idUser, String email, String password, String nameUser, String phone_number, String avatar, String birth, String sex) {
         this.idUser = idUser;
         this.email = email;
         this.password = password;
-        this.username = username;
+        this.nameUser = nameUser;
         this.phone_number = phone_number;
-        this.address = address;
+        this.avatar = avatar;
         this.birth = birth;
         this.sex = sex;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getPassword() {
@@ -49,12 +41,12 @@ public class User {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNameUser() {
+        return nameUser;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNameUser(String nameUser) {
+        this.nameUser = nameUser;
     }
 
     public String getPhone_number() {
@@ -63,6 +55,14 @@ public class User {
 
     public void setPhone_number(String phone_number) {
         this.phone_number = phone_number;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getBirth() {

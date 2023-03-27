@@ -16,6 +16,7 @@
             android:id="@+id/til_email"
             style="@style/DefaultText"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:textColorHint="@color/gray"
@@ -30,9 +31,7 @@
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_stroke_border_1_un_selected"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
+
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -42,6 +41,7 @@
             style="@style/DefaultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:hint="@string/password"
             android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white"
@@ -55,9 +55,7 @@
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_stroke_border_1_un_selected"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
+
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -68,10 +66,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/c_password"
+
             android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white"
             app:errorEnabled="true"
-            android:baselineAligned="false"
             app:errorTextColor="@color/red"
             app:hintAnimationEnabled="true"
             app:hintTextColor="@color/black">
@@ -81,9 +79,7 @@
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_stroke_border_1_un_selected"
-                android:backgroundTint="@color/white"
-                android:textColor="@color/black"
+
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -96,7 +92,6 @@
             android:layout_marginTop="@dimen/_16sdp"
             android:backgroundTint="@color/black"
             android:padding="@dimen/_16sdp"
-            android:background="@drawable/bg_border_14"
             android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="@dimen/_12sdp" />
@@ -106,11 +101,11 @@
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:indeterminate="true"
-        android:indeterminateTint="@color/blue"
+        android:layout_centerInParent="true"
         android:indeterminateTintMode="src_atop"
-        android:maxHeight="10dp"
-        android:visibility="gone" />
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        android:maxHeight="10dp"/>
 
 </RelativeLayout>

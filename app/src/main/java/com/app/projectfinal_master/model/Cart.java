@@ -5,26 +5,13 @@ import java.io.Serializable;
 public class Cart implements Serializable {
     Product product;
     int quantity;
-    int idColor;
-    int idSize;
-    boolean isChose;
 
     public Cart() {
     }
 
-    public Cart(Product product, int idColor, int idSize, int quantity) {
+    public Cart(Product product, int quantity) {
         this.product = product;
-        this.idColor = idColor;
-        this.idSize = idSize;
         this.quantity = quantity;
-    }
-
-    public boolean isChose() {
-        return isChose;
-    }
-
-    public void setChose(boolean chose) {
-        isChose = chose;
     }
 
     public Product getProduct() {

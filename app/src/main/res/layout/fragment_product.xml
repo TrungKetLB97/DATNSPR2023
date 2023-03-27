@@ -34,11 +34,7 @@
                     android:background="@drawable/rounded_edittext"
                     android:drawableStart="@drawable/ic_search"
                     android:drawablePadding="@dimen/_16sdp"
-                    android:textColor="@color/black"
-                    android:textColorHint="@color/gray"
-                    android:focusableInTouchMode="false"
                     android:hint="@string/search"
-                    android:longClickable="false"
                     android:padding="@dimen/_8sdp" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
