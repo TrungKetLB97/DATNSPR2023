@@ -77,7 +77,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         category = mList.get(position);
-        holder.tvTitle.setText(category.getCategory());
+        holder.tvTitle.setText(category.getTitle());
         Glide.with(mContext).load(category.getImage()).into(holder.imgCategory);
 
         holder.setItemClickListener(new ItemClickListener() {
@@ -88,9 +88,8 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 } else {
                     Intent intent = new Intent(mContext, ProductArrangeActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putInt("id_category", mList.get(position).getIdCategory());
-                    bundle.putString("category", mList.get(position).getCategory());
-//                    bundle.putString("sex", mList.get(position).getSex());
+//                    bundle.putInt("id", mListLSP.get(position).getIdLSP());
+//                    bundle.putString("ten_loai", mListLSP.get(position).getTen_loai());
                     intent.putExtras(bundle);
                     view.getContext().startActivity(intent);
                 }

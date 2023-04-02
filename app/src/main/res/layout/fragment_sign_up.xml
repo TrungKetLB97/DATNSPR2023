@@ -14,95 +14,74 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/DefaultText"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@+id/img_search"
-            android:layout_toEndOf="@+id/img_back"
-            android:textColorHint="@color/gray_dark"
+            android:hint="@string/email"
+            android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_24sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_24sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_24sdp"
-            app:boxCornerRadiusTopStart="@dimen/_24sdp"
-            app:endIconMode="clear_text"
+            app:errorEnabled="true"
             app:errorTextColor="@color/red"
-            app:hintEnabled="true">
+            app:hintAnimationEnabled="true"
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_email"
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp" />
+
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/DefaultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_toStartOf="@+id/img_search"
-            android:layout_toEndOf="@+id/img_back"
-            android:textColorHint="@color/gray_dark"
+
+            android:hint="@string/password"
+            android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_24sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_24sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_24sdp"
-            app:boxCornerRadiusTopStart="@dimen/_24sdp"
-            app:endIconMode="password_toggle"
+            app:errorEnabled="true"
             app:errorTextColor="@color/red"
-            app:hintEnabled="true">
+            app:hintAnimationEnabled="true"
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_password"
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp" />
+
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_r_password"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/DefaultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:layout_toStartOf="@+id/img_search"
-            android:layout_toEndOf="@+id/img_back"
-            android:textColorHint="@color/gray_dark"
+            android:hint="@string/c_password"
+
+            android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white"
-            app:boxCornerRadiusBottomEnd="@dimen/_24sdp"
-            app:boxCornerRadiusBottomStart="@dimen/_24sdp"
-            app:boxCornerRadiusTopEnd="@dimen/_24sdp"
-            app:boxCornerRadiusTopStart="@dimen/_24sdp"
-            app:endIconMode="password_toggle"
+            app:errorEnabled="true"
             app:errorTextColor="@color/red"
-            app:hintEnabled="true">
+            app:hintAnimationEnabled="true"
+            app:hintTextColor="@color/black">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_r_password"
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/c_password"
-                android:inputType="textPassword"
-                android:maxLines="1"
-                android:singleLine="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_10sdp" />
+
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -111,11 +90,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/bg_border_14"
             android:backgroundTint="@color/black"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_16sdp"
             android:text="@string/sign_up"
-            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="@dimen/_12sdp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
@@ -124,11 +101,11 @@
         android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:indeterminate="true"
-        android:indeterminateTint="@color/blue"
+        android:layout_centerInParent="true"
         android:indeterminateTintMode="src_atop"
-        android:maxHeight="10dp"
-        android:visibility="gone" />
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        android:maxHeight="10dp"/>
 
 </RelativeLayout>

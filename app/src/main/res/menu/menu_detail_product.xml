@@ -7,10 +7,10 @@
         app:showAsAction="always"
         android:title="" />
 
-<!--    <item android:title="Settings"-->
-<!--        android:id="@+id/a"/>-->
-<!--    <item android:title="Settings"-->
-<!--        android:id="@+id/b"/>-->
-<!--    <item android:title="Settings"-->
-<!--        android:id="@+id/c"/>-->
+    <item android:title="Settings"
+        android:id="@+id/a"/>
+    <item android:title="Settings"
+        android:id="@+id/b"/>
+    <item android:title="Settings"
+        android:id="@+id/c"/>
 </menu>

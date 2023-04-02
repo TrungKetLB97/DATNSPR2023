@@ -77,6 +77,7 @@ public class MenProductFragment extends Fragment {
                 products) {
             if (product.getSex().equals("Nam")) this.products.add(product);
         }
+        Log.e("TAG", "setDataProducts: " +  products.size());
         for (Product product :
                 this.products) {
             addItemSaleProducts(product);
@@ -98,7 +99,7 @@ public class MenProductFragment extends Fragment {
 
     private void setRcvCategories() {
         categoryAdapter = new CategoryAdapter(getContext(), categories);
-        categoryLayout = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
+        categoryLayout = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
         rcvCategories.setLayoutManager(categoryLayout);
         rcvCategories.setAdapter(categoryAdapter);
     }
@@ -120,10 +121,10 @@ public class MenProductFragment extends Fragment {
     private void setListSliderItemTest() {
         List<SliderItem> sliderItems = new ArrayList<>();
         sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test1));
+        sliderItems.add(new SliderItem(R.drawable.test2));
+        sliderItems.add(new SliderItem(R.drawable.test3));
+        sliderItems.add(new SliderItem(R.drawable.test4));
 
         setDataViewPager(sliderItems);
     }

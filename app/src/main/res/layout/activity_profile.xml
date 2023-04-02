@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/gray_light"
     android:orientation="vertical"
     tools:context=".activity.SettingActivity">
 
@@ -39,142 +39,69 @@
         android:layout_height="@dimen/_8sdp" />
 
     <RelativeLayout
-        android:id="@+id/layout_update_nickname"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/bg_stroke_border_1_un_selected">
-
+        android:layout_height="wrap_content">
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_update_nickname"
+            android:id="@+id/tv_nickname"
             style="@style/DefaultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/background"
             android:drawableEnd="@drawable/ic_next"
-            android:gravity="center_vertical"
             android:padding="@dimen/_16sdp"
             android:text="@string/nickname"
             android:textSize="@dimen/_10sdp" />
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_username"
+            android:id="@+id/tv_name_user"
+            android:layout_alignParentEnd="true"
             style="@style/HintText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_42sdp"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/gray_dark"
-            android:textSize="@dimen/_10sdp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_update_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/bg_stroke_border_1_un_selected">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_update_email"
-            style="@style/DefaultText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_next"
-            android:gravity="center_vertical"
-            android:padding="@dimen/_16sdp"
-            android:text="@string/email"
-            android:textSize="@dimen/_10sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_email"
-            style="@style/HintText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_42sdp"
             android:background="@color/background"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/gray_dark"
-            android:textSize="@dimen/_10sdp" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/layout_update_phone_number"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/bg_stroke_border_1_un_selected">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_update_phone_number"
-            style="@style/DefaultText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_next"
-            android:gravity="center_vertical"
-            android:padding="@dimen/_16sdp"
-            android:text="@string/phone_number"
-            android:textSize="@dimen/_10sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_phone_number"
-            style="@style/HintText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_42sdp"
-            android:background="@color/background"
+            android:layout_marginEnd="@dimen/_36sdp"
             android:textAlignment="viewEnd"
-            android:textColor="@color/gray_dark"
             android:textSize="@dimen/_10sdp" />
     </RelativeLayout>
 
-    <RelativeLayout
-        android:id="@+id/layout_update_address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/bg_stroke_border_1_un_selected">
 
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_update_address"
-            style="@style/DefaultText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:drawableEnd="@drawable/ic_next"
-            android:gravity="center_vertical"
-            android:padding="@dimen/_16sdp"
-            android:text="@string/address"
-            android:textSize="@dimen/_10sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_address"
-            style="@style/HintText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="@dimen/_42sdp"
-            android:textAlignment="viewEnd"
-            android:textColor="@color/gray_dark"
-            android:textSize="@dimen/_10sdp" />
-    </RelativeLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_update_password"
+        android:id="@+id/tv_introduce"
         style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_8sdp"
-        android:background="@drawable/bg_stroke_border_1_un_selected"
+        android:background="@color/background"
         android:drawableEnd="@drawable/ic_next"
-        android:gravity="center_vertical"
         android:padding="@dimen/_16sdp"
-        android:text="@string/s_password"
+        android:text="@string/introduce"
+        android:textSize="@dimen/_10sdp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_8sdp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_category_favorite"
+        style="@style/DefaultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:drawableEnd="@drawable/ic_next"
+        android:padding="@dimen/_16sdp"
+        android:text="@string/categories_favorite"
+        android:textSize="@dimen/_10sdp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_size"
+        style="@style/DefaultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:drawableEnd="@drawable/ic_next"
+        android:padding="@dimen/_16sdp"
+        android:text="@string/size"
         android:textSize="@dimen/_10sdp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -42,14 +42,13 @@
                 android:src="@drawable/diamond" />
 
             <TextView
-                style="@style/DefaultText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:text="@string/buy_with_category"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_14sdp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -60,7 +59,7 @@
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_category"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_160sdp"
             android:backgroundTint="@color/gray_light"
             app:cardCornerRadius="@dimen/_16sdp"
             app:cardMaxElevation="@dimen/_8sdp"
@@ -69,7 +68,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_category"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp" />
 
         </androidx.cardview.widget.CardView>
 
@@ -85,14 +85,13 @@
                 android:src="@drawable/diamond" />
 
             <TextView
-                style="@style/DefaultText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:text="@string/sale"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_14sdp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -126,14 +125,13 @@
                 android:src="@drawable/diamond" />
 
             <TextView
-                style="@style/DefaultText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_24sdp"
                 android:text="@string/recommend"
                 android:textColor="@color/black"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_14sdp" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"

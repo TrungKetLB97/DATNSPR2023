@@ -9,7 +9,7 @@
     tools:context=".activity.MainActivity">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/img_close"
+        android:id="@+id/btn_close"
         android:layout_width="@dimen/_28sdp"
         android:layout_height="@dimen/_28sdp"
         android:layout_alignParentEnd="true"
@@ -17,14 +17,11 @@
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/img_logo"
-        android:layout_width="@dimen/_100sdp"
-        android:layout_height="@dimen/_100sdp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_marginStart="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:src="@drawable/logo_app" />
+        android:layout_margin="@dimen/_20sdp"
+        android:src="@mipmap/ic_launcher" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_select"
@@ -33,7 +30,6 @@
         android:layout_height="@dimen/_30sdp"
         android:layout_below="@+id/img_logo"
         android:background="@color/background"
-        app:tabTextAppearance="@style/MineCustomTabText"
         app:tabGravity="fill"
         app:tabMode="fixed" />
 
@@ -47,8 +43,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true">
 
         <TextView
             android:id="@+id/tv_login_with"
@@ -63,37 +59,20 @@
             android:text="@string/login_with"
             android:textSize="@dimen/_14sdp" />
 
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/layout_login_with_google"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_login_google"
+            style="@style/ContainerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_border_14"
-            android:weightSum="2"
-            android:clickable="true"
+            android:layout_below="@+id/tv_login_with"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
             android:backgroundTint="@color/blue"
-            android:focusable="true">
-
-            <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="@dimen/_32sdp"
-                android:layout_height="@dimen/_32sdp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:src="@drawable/ggicon"/>
-
-            <TextView
-                android:id="@+id/btn_login_google"
-                style="@style/ContainerText"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_50sdp"
-                android:background="@null"
-                android:gravity="center"
-                android:layout_marginStart="@dimen/_16sdp"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:text="@string/login_google"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
+            android:drawableStart="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_launcher"
+            android:text="@string/login_google"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_10sdp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 

@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -36,7 +35,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.app.projectfinal_master.R;
 import com.app.projectfinal_master.activity.CartActivity;
-import com.app.projectfinal_master.activity.SearchActivity;
 import com.app.projectfinal_master.adapter.ProductFragmentAdapter;
 import com.app.projectfinal_master.model.Category;
 import com.app.projectfinal_master.model.Product;
@@ -50,7 +48,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class ProductFragment extends Fragment {
     private View view;
@@ -58,10 +55,9 @@ public class ProductFragment extends Fragment {
     private ActionBar actionBar;
     private AppCompatActivity activity;
     private AHBottomNavigation bottomNavigation;
-    private EditText edtSearch;
 
     private Product product;
-    public List<Product> products;
+    private List<Product> products;
 
     private Category category;
     private List<Category> categories;
@@ -83,7 +79,6 @@ public class ProductFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_product, container, false);
         activity = (AppCompatActivity) getActivity();
         initView();
-        onClickEdtSearch();
         setViewActionBar();
         setFragmentManager();
         setContentViewPager();
@@ -96,16 +91,6 @@ public class ProductFragment extends Fragment {
         tabLayout = (TabLayout) view.findViewById(R.id.tab_select);
         viewPager2 = (ViewPager2) view.findViewById(R.id.view_pager);
         progressBar = view.findViewById(R.id.progress);
-        edtSearch = view.findViewById(R.id.edt_search);
-    }
-
-    private void onClickEdtSearch() {
-        edtSearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                someActivityResultLauncher.launch(new Intent(getContext(), SearchActivity.class));
-            }
-        });
     }
 
     private void setViewActionBar() {
@@ -136,10 +121,6 @@ public class ProductFragment extends Fragment {
         tabLayout.addTab(tabLayout.newTab().setText(R.string.home));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.men));
         tabLayout.addTab(tabLayout.newTab().setText(R.string.woman));
-
-        tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
-        tabLayout.setScrollContainer(true);
-
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -188,15 +169,14 @@ public class ProductFragment extends Fragment {
                     JSONArray array = new JSONArray(response);
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
-                        String codeProduct = object.getString("code_product");
+                        String idProduct = object.getString("id_product");
                         int idCategory = object.getInt("id_category");
                         String name = object.getString("name");
                         String sex = object.getString("sex");
                         String imageThumb = object.getString("image_thumb");
                         String sellingPrice = object.getString("selling_price");
-                        int quantity = object.getInt("quantity");
                         int discount = object.getInt("discount");
-                        product = new Product(codeProduct, idCategory, name, sex, imageThumb, sellingPrice, quantity, discount);
+                        product = new Product(idProduct, idCategory, name, sex, imageThumb, sellingPrice, discount);
                         products.add(product);
                     }
                     productFragmentAdapter.setDataProducts(products);
@@ -227,12 +207,12 @@ public class ProductFragment extends Fragment {
                             JSONArray array = new JSONArray(response);
                             for (int i = 0; i < array.length(); i++) {
                                 JSONObject object = array.getJSONObject(i);
-                                int idCategory = object.getInt("id_category");
-                                String categoryTitle = object.getString("category");
+                                int id = object.getInt("id");
                                 String sex = object.getString("sex");
+                                String title = object.getString("title");
                                 String image = object.getString("image");
 
-                                category = new Category(idCategory, categoryTitle, sex, image);
+                                category = new Category(id, sex, title, image);
                                 categories.add(category);
                             }
                             productFragmentAdapter.setDataCategories(categories);

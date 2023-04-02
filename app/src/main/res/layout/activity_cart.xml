@@ -18,8 +18,8 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="@dimen/_8sdp"
-            app:menu="@menu/menu_cart" />
+            app:menu="@menu/menu_cart"
+            android:paddingRight="@dimen/_8sdp" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/img_back"
@@ -63,26 +63,27 @@
             android:padding="@dimen/_8sdp">
 
             <CheckBox
-                android:id="@+id/check_box"
+                android:id="@+id/checkbox"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center"
                 android:background="@drawable/custom_checkbox"
                 android:button="@null"
-                android:checked="false"
+                android:checked="true"
                 app:buttonCompat="@null" />
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_all"
                 style="@style/HintText"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_toEndOf="@+id/check_box"
-                android:gravity="center"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_toEndOf="@+id/checkbox"
                 android:text="@string/all"
                 android:textColor="@color/gray_dark"
                 android:textSize="@dimen/_12sdp" />
@@ -93,12 +94,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:inputType="numberDecimal"
                 android:layout_marginStart="@dimen/_8sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
                 android:layout_toStartOf="@+id/btn_pay"
                 android:layout_toEndOf="@+id/tv_all"
                 android:gravity="end"
-                android:inputType="numberDecimal"
                 android:textColor="@color/red"
                 android:textSize="@dimen/_12sdp" />
 
@@ -111,7 +112,7 @@
                 android:background="@drawable/bg_border_12"
                 android:paddingStart="@dimen/_8sdp"
                 android:paddingEnd="@dimen/_8sdp"
-                android:text="Thanh toán (0)"
+                android:text="Thanh toán (3)"
                 android:textAlignment="center"
                 android:textAllCaps="false"
                 android:textSize="@dimen/_12sdp" />
@@ -155,16 +156,5 @@
             android:textColor="@color/red"
             android:textSize="@dimen/_14sdp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/blue"
-        android:indeterminateTintMode="src_atop"
-        android:maxHeight="10dp"
-        android:visibility="gone" />
 
 </RelativeLayout>

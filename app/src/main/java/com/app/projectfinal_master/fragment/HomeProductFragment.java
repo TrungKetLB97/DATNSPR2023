@@ -68,6 +68,7 @@ public class HomeProductFragment extends Fragment {
         rcvCategories = view.findViewById(R.id.rcv_category);
         rcvRecommendProducts = view.findViewById(R.id.rcv_recommend_products);
         rcvSaleProducts = view.findViewById(R.id.rcv_sale_products);
+
         categoryLayout = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
     }
 
@@ -89,10 +90,10 @@ public class HomeProductFragment extends Fragment {
     private void setListSliderItemTest() {
         List<SliderItem> sliderItems = new ArrayList<>();
         sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test1));
+        sliderItems.add(new SliderItem(R.drawable.test2));
+        sliderItems.add(new SliderItem(R.drawable.test3));
+        sliderItems.add(new SliderItem(R.drawable.test4));
 
         setDataViewPager(sliderItems);
     }
@@ -173,7 +174,7 @@ public class HomeProductFragment extends Fragment {
 
     private void setRecyclerViewCategories() {
         categoryAdapter = new CategoryAdapter(getContext(), categories);
-        categoryLayout = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
+        categoryLayout = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
         rcvCategories.setLayoutManager(categoryLayout);
         rcvCategories.setAdapter(categoryAdapter);
     }

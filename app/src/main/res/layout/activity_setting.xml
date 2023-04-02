@@ -46,7 +46,7 @@
         android:background="@color/background"
         android:drawableEnd="@drawable/ic_next"
         android:padding="@dimen/_16sdp"
-        android:text="@string/user"
+        android:text="@string/new_product"
         android:textSize="@dimen/_12sdp" />
 
     <View
@@ -54,7 +54,7 @@
         android:layout_height="@dimen/_8sdp" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tv_update_address"
+        android:id="@+id/tv_address"
         style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -64,16 +64,16 @@
         android:text="@string/address"
         android:textSize="@dimen/_10sdp" />
 
-<!--    <androidx.appcompat.widget.AppCompatTextView-->
-<!--        android:id="@+id/tv_account_manager"-->
-<!--        style="@style/DefaultText"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="@color/background"-->
-<!--        android:drawableEnd="@drawable/ic_next"-->
-<!--        android:padding="@dimen/_16sdp"-->
-<!--        android:text="@string/my_account"-->
-<!--        android:textSize="@dimen/_10sdp" />-->
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_account_manager"
+        style="@style/DefaultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background"
+        android:drawableEnd="@drawable/ic_next"
+        android:padding="@dimen/_16sdp"
+        android:text="@string/my_account"
+        android:textSize="@dimen/_10sdp" />
 
     <View
         android:layout_width="match_parent"
@@ -122,7 +122,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/background"
-        android:text="@string/sign_out"
-        android:textColor="@color/red" />
+        android:textColor="@color/red"
+        android:text="@string/sign_out" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
