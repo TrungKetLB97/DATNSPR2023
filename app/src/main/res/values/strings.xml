@@ -1,0 +1,67 @@
+<resources>
+    <string name="app_name">ProjectFinal_master</string>
+
+    <!--    Title    -->
+    <string name="sign_in">Đăng nhập</string>
+    <string name="sign_out">Đăng xuất</string>
+    <string name="out_in">Đăng nhập / Đăng ký</string>
+    <string name="login_google">Đăng nhập bằng google</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="account">Tài khoản</string>
+    <string name="password">Mật khẩu</string>
+    <string name="c_password">Xác nhận mật khẩu</string>
+    <string name="email">Email</string>
+    <string name="name_shop">Big Shop</string>
+    <string name="home">Trang chủ</string>
+    <string name="notifications">Thông báo</string>
+    <string name="men">Nam</string>
+    <string name="woman">Nữ</string>
+    <string name="category">Thể loại</string>
+    <string name="buy_with_category">Mua theo thể loại</string>
+    <string name="cart">Giỏ hàng</string>
+    <string name="user">Cá nhân</string>
+    <string name="setting">Cài đặt</string>
+    <string name="profile">Chỉnh sửa dữ liệu cá nhân</string>
+    <string name="product">Sản phẩm</string>
+    <string name="sale">Giảm giá</string>
+    <string name="recommend">Đề xuất</string>
+    <string name="new_product">Sản phẩm mới</string>
+    <string name="search">Tìm kiếm sản phẩm</string>
+
+    <!--    Content    -->
+    <string name="t_welcome">Chào mừng quay trở lại.</string>
+    <string name="c_welcome">Rất vui được gặp lại bạn.</string>
+    <string name="f_password">Quên mật khẩu?</string>
+    <string name="terms">Đồng ý với các điều khoản.</string>
+    <string name="by_with_category">Cùng thể loại</string>
+    <string name="best_seller">Bán chạy</string>
+    <string name="add_cart">Thêm giỏ hàng</string>
+    <string name="size">Kích thước</string>
+    <string name="sent">Gửi</string>
+    <string name="ship">Vận chuyển</string>
+    <string name="buy_now">Mua ngay</string>
+    <string name="ship_content">Miễn phí vận chuyển cho các đơn hàng trên 500.000đ</string>
+    <string name="shipping_method">Phương pháp vận chuyển</string>
+    <string name="describe">Mô tả</string>
+    <string name="all">Tất cả</string>
+    <string name="evaluate">Đánh giá</string>
+    <string name="write_review">Viết đánh giá</string>
+    <string name="my_order">Đơn hàng của tôi</string>
+    <string name="content_evaluate">Đánh giá của bạn cho sản phẩm này</string>
+    <string name="write_here">Viết ở đây</string>
+    <string name="comment">Để lại bình luận của bạn</string>
+    <string name="empty_cart">Giỏ hàng của bạn trống</string>
+    <string name="login_with">----------or----------</string>
+    <string name="address">Sổ địa chỉ</string>
+    <string name="nickname">Nickname</string>
+    <string name="accept">Xác nhận</string>
+    <string name="my_account">Quản lý tài khoản</string>
+    <string name="feedback">Đánh giá và phản hồi</string>
+    <string name="categories_favorite">Danh mục ưa thích</string>
+    <string name="follow">Theo dõi</string>
+    <string name="introduce">Giới thiệu</string>
+    <string name="filter">Sàng lọc</string>
+    <string name="classify">Phân loại</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
