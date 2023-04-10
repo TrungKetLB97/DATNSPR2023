@@ -1,19 +1,28 @@
 package com.app.projectfinal_master.model;
 
 public class User {
-    String idUser, email, nameUser, phone_number, avatar, birth, sex;
+    String idUser, email, password, nameUser, phone_number, avatar, birth, sex;
 
     public User() {
     }
 
-    public User(String idUser, String email, String nameUser, String phone_number, String avatar, String birth, String sex) {
+    public User(String idUser, String email, String password, String nameUser, String phone_number, String avatar, String birth, String sex) {
         this.idUser = idUser;
         this.email = email;
+        this.password = password;
         this.nameUser = nameUser;
         this.phone_number = phone_number;
         this.avatar = avatar;
         this.birth = birth;
         this.sex = sex;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getIdUser() {

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".fragment.SignUpFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -13,7 +14,9 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_email"
+            style="@style/DefaultText"
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:hint="@string/email"
             android:textColorHint="@color/gray"
@@ -25,16 +28,20 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_email"
+                style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_password"
+            style="@style/DefaultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             android:hint="@string/password"
             android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white"
@@ -45,17 +52,21 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_password"
+                style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_r_password"
+            style="@style/DefaultText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/c_password"
+
             android:textColorHint="@color/gray"
             app:boxBackgroundColor="@color/white"
             app:errorEnabled="true"
@@ -65,53 +76,36 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edt_r_password"
+                style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 android:textSize="@dimen/_10sdp"
                 android:textStyle="bold" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_register"
+            style="@style/ContainerText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
             android:backgroundTint="@color/black"
             android:padding="@dimen/_16sdp"
-            android:text="@string/register"
+            android:text="@string/sign_up"
             android:textColor="@color/white"
             android:textSize="@dimen/_12sdp" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <RelativeLayout
+    <ProgressBar
+        android:id="@+id/progress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/tv_login_with"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_8sdp"
-            android:gravity="center"
-            android:text="@string/login_with"
-            android:textSize="@dimen/_14sdp" />
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_login_google"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_login_with"
-            android:layout_marginStart="@dimen/_16sdp"
-            android:layout_marginEnd="@dimen/_16sdp"
-            android:backgroundTint="@color/blue"
-            android:drawableStart="@mipmap/ic_launcher"
-            android:src="@mipmap/ic_launcher"
-            android:textSize="@dimen/_10sdp"
-            android:text="@string/login_google"
-            android:textColor="@color/white" />
-
-    </RelativeLayout>
+        android:indeterminate="true"
+        android:layout_centerInParent="true"
+        android:indeterminateTintMode="src_atop"
+        android:indeterminateTint="@color/blue"
+        android:visibility="gone"
+        android:maxHeight="10dp"/>
 
 </RelativeLayout>

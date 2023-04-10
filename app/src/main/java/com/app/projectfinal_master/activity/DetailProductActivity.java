@@ -2,16 +2,23 @@ package com.app.projectfinal_master.activity;
 
 import static com.app.projectfinal_master.utils.Constant.FAVORITE;
 import static com.app.projectfinal_master.utils.Constant.PRODUCT;
+import static com.app.projectfinal_master.utils.Constant.INSERT_CART;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -26,7 +33,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.app.projectfinal_master.R;
 import com.app.projectfinal_master.adapter.ImageAdapter;
 import com.app.projectfinal_master.data.DataLocalManager;
+import com.app.projectfinal_master.model.Cart;
 import com.app.projectfinal_master.model.Product;
+import com.app.projectfinal_master.utils.AnimationUtil;
 import com.app.projectfinal_master.utils.ArrayUtil;
 import com.app.projectfinal_master.utils.VolleySingleton;
 
@@ -38,6 +47,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class DetailProductActivity extends AppCompatActivity {
@@ -47,6 +57,9 @@ public class DetailProductActivity extends AppCompatActivity {
     private StringRequest mStringRequest;
     private Product detailProduct;
 
+    private Cart cart;
+    private List<Cart> carts;
+
     private ViewPager2 viewPager2;
     private RecyclerView rcvDetailProduct;
     private RecyclerView.Adapter detailProductAdapter;
@@ -54,15 +67,18 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private TextView tvName, tvPrice;
     private Button btnAddCart;
-    private ImageView imgAddFavorite, imgReturn;
+    private ImageView imgAddFavorite, imgReturn, imgViewAnim, imgStartAnim;
+    private View imgEndAnim;
+    private Handler setDelay = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_product);
         initView();
+        getCart();
+        getProductDetail();
         setViewActionBar();
-        getProductDetail(getDataBundle());
         setEventClickButtonBuy();
         setEventClickButtonFavorite();
     }
@@ -73,14 +89,41 @@ public class DetailProductActivity extends AppCompatActivity {
         tvPrice = (TextView) findViewById(R.id.tv_price);
         viewPager2 = (ViewPager2) findViewById(R.id.vp2_img_details);
         imgAddFavorite = (ImageView) findViewById(R.id.img_add_favorite);
-//        imgReturn = (ImageView) findViewById(R.id.img_return);
+        imgStartAnim = (ImageView) findViewById(R.id.img_start_anim);
+        imgViewAnim = (ImageView) findViewById(R.id.img_view_anim);
         btnAddCart = (Button) findViewById(R.id.btn_add_cart);
+    }
+
+    private void getCart() {
+        carts = DataLocalManager.getCarts();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_detail_product, menu);
+        imgEndAnim = findViewById(menu.getItem(0).getItemId());
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.act_cart:
+                startActivity(new Intent(DetailProductActivity.this, CartActivity.class));
+                break;
+            case R.id.a:
+
+                break;
+            case R.id.b:
+
+                break;
+            case R.id.c:
+
+                break;
+            default:
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void setViewActionBar() {
@@ -90,36 +133,113 @@ public class DetailProductActivity extends AppCompatActivity {
         actionBar.setTitle(null);
     }
 
-    private String getDataBundle() {
+    private Product getDataProduct() {
         Bundle bundle = getIntent().getExtras();
         if (bundle == null) return null;
-        String code = bundle.getString("code_product");
-        return code;
+        Product product = (Product) bundle.getSerializable("product");
+        return product;
     }
 
-    private void setEventClickButtonFavorite(){
+    private void setEventClickButtonFavorite() {
         imgAddFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFavorite("1", getDataBundle());
+                addFavorite("1");
             }
         });
     }
 
-    private void setEventClickButtonBuy(){
+
+    private void setEventClickButtonBuy() {
         btnAddCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(DetailProductActivity.this, CartActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("code_product", getDataBundle());
-                intent.putExtras(bundle);
-                startActivity(intent);
+                btnAddCart.setEnabled(false);
+                cart = new Cart(detailProduct, 1);
+                addCart(DetailProductActivity.this, carts, cart);
+                AnimationUtil.translateAnimation(imgViewAnim, imgStartAnim, imgEndAnim, new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+
+                    }
+
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
+
+                    }
+                });
+                Runnable startDelay = new Runnable() {
+                    @Override
+                    public void run() {
+                        btnAddCart.setEnabled(true);
+                    }
+                };
+                setDelay.postDelayed(startDelay, AnimationUtil.ANIMATION_DURATION + 100);
             }
         });
     }
 
-    private void getProductDetail(final String code_product) {
+    public void addCart(Context context, List<Cart> carts, Cart cart) {
+        if (carts != null) {
+            for (int i = 0; i < carts.size(); i++) {
+                if (Objects.equals(cart.getProduct().getIdProduct(), carts.get(i).getProduct().getIdProduct())) {
+                    carts.get(i).setQuantity(carts.get(i).getQuantity() + 1);
+                    addCart(context, cart.getProduct().getIdProduct(), carts.get(i).getQuantity());
+                    DataLocalManager.changeDataCart(carts.get(i), i);
+                    return;
+                }
+            }
+            carts.add(cart);
+            DataLocalManager.addCarts(carts);
+            addCart(context, cart.getProduct().getIdProduct(), 1);
+        }
+    }
+
+    public void addCart(Context context, String idProduct, int quantity) {
+        if (DataLocalManager.getUser() != null)
+            mStringRequest = new StringRequest(Request.Method.POST, INSERT_CART, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    try {
+                        JSONObject object = new JSONObject(response);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+//                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }) {
+                @Override
+                protected Map<String, String> getParams() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("id_user", DataLocalManager.getUser().getIdUser());
+                    params.put("id_product", idProduct);
+                    params.put("quantity", String.valueOf(quantity));
+                    return params;
+                }
+            };
+
+        mStringRequest.setShouldCache(false);
+        VolleySingleton.getInstance(context).getRequestQueue().add(mStringRequest);
+    }
+
+    private void getProductDetail() {
+        String idProduct = getDataProduct().getIdProduct();
+        int idCategory = getDataProduct().getIdCategory();
+        String name = getDataProduct().getName();
+        String imageThumb = getDataProduct().getImageThumb();
+        String sellingPrice = getDataProduct().getSellingPrice();
+        int discount = getDataProduct().getIdCategory();
         mStringRequest = new StringRequest(Request.Method.POST, PRODUCT, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -129,34 +249,22 @@ public class DetailProductActivity extends AppCompatActivity {
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
 
-                        int id_category = object.getInt("id_category");
-                        int id_color = object.getInt("id_color");
-                        int id_size = object.getInt("id_size");
-                        String code = object.getString("code_product");
-                        String name = object.getString("name");
-                        JSONArray image_large = object.getJSONArray("image_large");
-                        String selling_price = object.getString("selling_price");
-                        int quantity = object.getInt("quantity");
+                        JSONArray imageLarge = object.getJSONArray("image_large");
+                        String color = object.getString("color");
+                        String size = object.getString("size");
+                        String quantity = object.getString("quantity");
                         String description = object.getString("description");
                         String rate = object.getString("rate");
-                        int discount = object.getInt("discount");
-
-                        tvName.setText(name);
-                        tvPrice.setText(selling_price);
-                        viewPager2.setAdapter(new ImageAdapter(DetailProductActivity.this, getListImageLarge(image_large), viewPager2));
-//                        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-                        Product product;
                         if (discount == 0)
-                            product = new Product(id_category, id_color, id_size, code, name, image_large, selling_price, quantity, description, rate, false);
+                            detailProduct = new Product(idProduct, idCategory, name, imageThumb, imageLarge, sellingPrice, color, size, quantity, description, rate, false);
                         else
-                            product = new Product(id_category, id_color, id_size, code, name, image_large, selling_price, quantity, description, rate, true);
-                        detailProduct = product;
+                            detailProduct = new Product(idProduct, idCategory, name, imageThumb, imageLarge, sellingPrice, color, size, quantity, description, rate, true);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
 //                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
                 }
-
+                setViewProductDetail();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -168,7 +276,7 @@ public class DetailProductActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> params = new HashMap<>();
-                params.put("code_product", code_product);
+                params.put("id_product", idProduct);
 
                 return params;
             }
@@ -178,66 +286,14 @@ public class DetailProductActivity extends AppCompatActivity {
         VolleySingleton.getInstance(DetailProductActivity.this).getRequestQueue().add(mStringRequest);
     }
 
-    private void getProductSize(final String code) {
-        mStringRequest = new StringRequest(Request.Method.POST, PRODUCT, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray array = new JSONArray(response);
-
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
-
-                        int id_category = object.getInt("id_category");
-                        int id_color = object.getInt("id_color");
-                        int id_size = object.getInt("id_size");
-                        String code = object.getString("code");
-                        String name = object.getString("name");
-                        JSONArray image_large = object.getJSONArray("image_large");
-                        String selling_price = object.getString("selling_price");
-                        int quantity = object.getInt("quantity");
-                        String description = object.getString("description");
-                        String rate = object.getString("rate");
-                        int discount = object.getInt("discount");
-
-                        tvName.setText(name);
-                        tvPrice.setText(selling_price);
-                        viewPager2.setAdapter(new ImageAdapter(DetailProductActivity.this, getListImageLarge(image_large), viewPager2));
-//                        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
-                        Product product;
-                        if (discount == 0)
-                            product = new Product(id_category, id_color, id_size, code, name, image_large, selling_price, quantity, description, rate, false);
-                        else
-                            product = new Product(id_category, id_color, id_size, code, name, image_large, selling_price, quantity, description, rate, true);
-                        detailProduct = product;
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-//                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(DetailProductActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        }) {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-
-                Map<String, String> params = new HashMap<>();
-                params.put("code", code);
-
-                return params;
-            }
-        };
-
-        mStringRequest.setShouldCache(false);
-        VolleySingleton.getInstance(DetailProductActivity.this).getRequestQueue().add(mStringRequest);
+    private void setViewProductDetail() {
+        tvName.setText(detailProduct.getName());
+        tvPrice.setText(detailProduct.getSellingPrice());
+        viewPager2.setAdapter(new ImageAdapter(DetailProductActivity.this, getListImageLarge(), viewPager2));
+        viewPager2.getChildAt(0).setOverScrollMode(RecyclerView.OVER_SCROLL_NEVER);
     }
 
-    private void addFavorite(final String id_user, final String code_product) {
+    private void addFavorite(final String id_user) {
         mStringRequest = new StringRequest(Request.Method.POST, FAVORITE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
@@ -263,7 +319,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("id_user", id_user);
-                params.put("code_product", code_product);
+                params.put("id_product", detailProduct.getIdProduct());
 
                 return params;
             }
@@ -273,8 +329,9 @@ public class DetailProductActivity extends AppCompatActivity {
         VolleySingleton.getInstance(DetailProductActivity.this).getRequestQueue().add(mStringRequest);
     }
 
-    private List<String> getListImageLarge(JSONArray image_large){
-        List<Object> img = ArrayUtil.convert(image_large);
+    private List<String> getListImageLarge() {
+        Log.e("TAG", "getListImageLarge: " + detailProduct.getImageLarge());
+        List<Object> img = ArrayUtil.convert(detailProduct.getImageLarge());
 
         List<String> imageItems = new ArrayList<>();
         for (Object item : img) {

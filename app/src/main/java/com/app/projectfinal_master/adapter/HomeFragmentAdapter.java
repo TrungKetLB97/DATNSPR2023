@@ -6,8 +6,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
 
 import com.app.projectfinal_master.fragment.HomeProductFragment;
-import com.app.projectfinal_master.fragment.MenProductFragment;
-import com.app.projectfinal_master.fragment.WomanProductFragment;
+import com.app.projectfinal_master.fragment.NotificationFragment;
+import com.app.projectfinal_master.fragment.ProductFragment;
+import com.app.projectfinal_master.fragment.UserFragment;
 
 public class HomeFragmentAdapter extends MyFragmentAdapter {
     public HomeFragmentAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
@@ -18,10 +19,10 @@ public class HomeFragmentAdapter extends MyFragmentAdapter {
     @Override
     public Fragment createFragment(int position) {
         if (position == 1)
-            return new MenProductFragment();
+            return new NotificationFragment();
         else if (position == 2)
-            return new WomanProductFragment();
-        return new HomeProductFragment();
+            return new UserFragment();
+        return new ProductFragment();
     }
 
     @Override

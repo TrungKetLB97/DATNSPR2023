@@ -11,7 +11,7 @@
         android:layout_margin="@dimen/_8sdp">
 
         <CheckBox
-            android:id="@+id/checkbox"
+            android:id="@+id/check_box"
             android:layout_width="@dimen/_24sdp"
             android:layout_height="@dimen/_24sdp"
             android:layout_gravity="center"
@@ -25,6 +25,7 @@
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_120sdp"
             android:layout_margin="@dimen/_8sdp"
+            android:scaleType="fitXY"
             android:background="@drawable/bg_border_24" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -53,7 +54,7 @@
                     android:layout_width="@dimen/_24sdp"
                     android:layout_height="@dimen/_24sdp"
                     android:layout_alignParentEnd="true"
-                    android:src="@drawable/ic_favorite" />
+                    android:src="@drawable/custom_drawable_favorite" />
             </RelativeLayout>
 
 
@@ -64,7 +65,6 @@
                 android:layout_marginStart="@dimen/_16sdp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:background="@drawable/style_spinner"
                 android:spinnerMode="dropdown" />
 
             <androidx.appcompat.widget.AppCompatTextView
@@ -81,7 +81,8 @@
                 android:gravity="end">
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="@dimen/_32sdp"
+                    android:id="@+id/btn_reduce"
+                    android:layout_width="@dimen/_22sdp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_border_20_left_top_bottom"
@@ -91,8 +92,9 @@
                     android:textSize="@dimen/_16sdp" />
 
                 <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_quantity"
                     style="@style/DefaultText"
-                    android:layout_width="@dimen/_40sdp"
+                    android:layout_width="@dimen/_30sdp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:layout_marginStart="-1dp"
@@ -102,7 +104,8 @@
                     android:text="1" />
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:layout_width="@dimen/_32sdp"
+                    android:id="@+id/btn_increase"
+                    android:layout_width="@dimen/_22sdp"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:background="@drawable/bg_stroke_border_20_right_top_bottom"

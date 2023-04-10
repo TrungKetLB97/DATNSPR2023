@@ -48,12 +48,12 @@ public class DetailProductAdapter extends RecyclerView.Adapter<DetailProductAdap
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), false);
+//            itemClickListener.onClick(v, getAdapterPosition(), false);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), true);
+//            itemClickListener.onClick(v, getAdapterPosition(), true);
             return false;
         }
 
@@ -76,16 +76,16 @@ public class DetailProductAdapter extends RecyclerView.Adapter<DetailProductAdap
 
         Glide.with(context).load(img).into(holder.imgDetailProduct);
 
-        holder.setItemClickListener(new ItemClickListener() {
-            @Override
-            public void onClick(View view, int position, boolean isLongClick) {
-                if (isLongClick) {
-
-                } else {
-
-                }
-            }
-        });
+//        holder.setItemClickListener(new ItemClickListener() {
+//            @Override
+//            public void onClick(View view, int position, boolean isLongClick) {
+//                if (isLongClick) {
+//
+//                } else {
+//
+//                }
+//            }
+//        });
     }
 
     @Override

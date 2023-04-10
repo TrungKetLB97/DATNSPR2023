@@ -14,6 +14,7 @@ import com.app.projectfinal_master.model.Category;
 import com.app.projectfinal_master.utils.ItemClickListener;
 import com.bumptech.glide.Glide;
 
+import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -48,12 +49,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         @Override
         public void onClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), false);
+            itemClickListener.onClick(v, Collections.singletonList(mList), getAdapterPosition(), false);
         }
 
         @Override
         public boolean onLongClick(View v) {
-            itemClickListener.onClick(v, getAdapterPosition(), true);
+            itemClickListener.onClick(v, Collections.singletonList(mList),getAdapterPosition(), true);
             return false;
         }
 
@@ -78,7 +79,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
 
         holder.setItemClickListener(new ItemClickListener() {
             @Override
-            public void onClick(View view, int position, boolean isLongClick) {
+            public void onClick(View view, List<Object> list, int position, boolean isLongClick) {
                 if (isLongClick) {
 
                 } else {

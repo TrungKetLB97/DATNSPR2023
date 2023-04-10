@@ -1,20 +1,40 @@
 package com.app.projectfinal_master.activity;
 
+import androidx.activity.result.ActivityResult;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.app.projectfinal_master.R;
-import com.app.projectfinal_master.adapter.MainFragmentAdapter;
+import com.app.projectfinal_master.adapter.SignInFragmentAdapter;
+import com.app.projectfinal_master.utils.CheckStateNetwork;
+import com.app.projectfinal_master.utils.ICallbackActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
-    private MainFragmentAdapter mainFragmentAdapter;
+    private FragmentManager fragmentManager;
+    private SignInFragmentAdapter signInFragmentAdapter;
+
+    private Button btnLoginGoogle;
+    public GoogleSignInOptions gso;
+    public GoogleSignInClient gsc;
+    public GoogleSignInAccount gsa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,25 +44,37 @@ public class MainActivity extends AppCompatActivity {
         initView();
         setFragmentManager();
         setContentViewPager();
+        setOnClickLoginGoogleButton();
         getEventSelectedTabLayout();
+        registerGoogleRequest();
     }
 
     private void initView()
     {
-        tabLayout = (TabLayout) findViewById(R.id.tab_select);
-        viewPager2 = (ViewPager2) findViewById(R.id.view_pager);
+        tabLayout = findViewById(R.id.tab_select);
+        viewPager2 = findViewById(R.id.view_pager);
+        btnLoginGoogle = findViewById(R.id.btn_login_google);
     }
 
     private void setFragmentManager()
     {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        mainFragmentAdapter = new MainFragmentAdapter(fragmentManager, getLifecycle());
-
+        fragmentManager = getSupportFragmentManager();
+        signInFragmentAdapter = new SignInFragmentAdapter(fragmentManager, getLifecycle());
+        signInFragmentAdapter.setCallbackActivity(new ICallbackActivity() {
+            @Override
+            public void callback(Object object) {
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("result", (String) gsa.getDisplayName());
+                Log.e("TAG", "callback: gsa"+  gsa.getDisplayName());
+                setResult(RESULT_OK, returnIntent);
+                finish();
+            }
+        });
     }
 
     private void setContentViewPager()
     {
-        viewPager2.setAdapter(mainFragmentAdapter);
+        viewPager2.setAdapter(signInFragmentAdapter);
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
@@ -71,5 +103,55 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void setDataCallBackActivity() {
+//        signInFragmentAdapter.setCallbackActivity(new ICallbackActivity() {
+//            @Override
+//            public void callback(Object object) {
+//                Intent returnIntent = new Intent();
+//                returnIntent.putExtra("result", (String) gsa.getDisplayName());
+//                Log.e("TAG", "callback: gsa"  +  gsa.getDisplayName());
+//                setResult(RESULT_OK);
+//                finish();
+//            }
+//        });
+    }
+
+    private void registerGoogleRequest() {
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(this, gso);
+    }
+
+    private void setOnClickLoginGoogleButton() {
+        btnLoginGoogle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!CheckStateNetwork.isNetworkAvailable(MainActivity.this)) return;
+                signInWithGoogle();
+            }
+        });
+    }
+
+    private void signInWithGoogle() {
+        Intent signInIntent = gsc.getSignInIntent();
+        startActivityForResult(signInIntent, 1000);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1000) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                task.getResult(ApiException.class);
+                gsa = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
+                assert gsa != null;
+                signInFragmentAdapter.signInFragment.signIn(gsa.getEmail(), "", 1);
+                setDataCallBackActivity();
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

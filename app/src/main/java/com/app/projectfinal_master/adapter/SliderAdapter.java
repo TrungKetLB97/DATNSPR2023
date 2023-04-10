@@ -41,9 +41,9 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
     public void onBindViewHolder(@NonNull SliderViewHolder holder, int position) {
         holder.setImg(sliderItems.get(position));
 
-        if (position == sliderItems.size() - 2) {
-            viewPager2.post(runnable);
-        }
+//        if (position == sliderItems.size() - 2) {
+//            viewPager2.post(runnable);
+//        }
 
     }
 
@@ -71,7 +71,7 @@ public class SliderAdapter extends RecyclerView.Adapter<SliderAdapter.SliderView
         @Override
         public void run() {
 //            sliderItems.clear();
-            sliderItems.addAll(sliderItems);
+//            sliderItems.addAll(sliderItems);
             notifyDataSetChanged();
         }
     };

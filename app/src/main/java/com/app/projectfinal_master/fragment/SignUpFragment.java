@@ -2,6 +2,7 @@ package com.app.projectfinal_master.fragment;
 
 import static com.app.projectfinal_master.utils.Constant.REGISTER;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -22,6 +24,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.app.projectfinal_master.R;
+import com.app.projectfinal_master.utils.VolleySingleton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -37,9 +40,10 @@ public class SignUpFragment extends Fragment {
     private TextInputLayout tilEmail, tilPassword, tilConfirmPassword;
     private TextInputEditText edtEmail, edtPassword, edtConfirmPassword;
     private Button btn_register, btnLoginGoogle;
-
+    private ProgressBar progressBar;
     private StringRequest mStringRequest;
-    private RequestQueue mRequestQueue;
+
+    public Context context;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -47,6 +51,7 @@ public class SignUpFragment extends Fragment {
         if (view == null)
             view = inflater.inflate(R.layout.fragment_sign_up, container, false);
         initView();
+        context = getContext();
         eventClickRegisterButton();
         return view;
     }
@@ -61,6 +66,7 @@ public class SignUpFragment extends Fragment {
         edtConfirmPassword = view.findViewById(R.id.edt_r_password);
         btn_register = view.findViewById(R.id.btn_register);
         btnLoginGoogle = view.findViewById(R.id.btn_login_google);
+        progressBar = view.findViewById(R.id.progress);
     }
 
     private void eventClickRegisterButton()
@@ -71,34 +77,27 @@ public class SignUpFragment extends Fragment {
                 String email = String.valueOf(edtEmail.getText());
                 String password = String.valueOf(edtPassword.getText());
                 String cPassword = String.valueOf(edtConfirmPassword.getText());
-
-                signUp(email, password, cPassword);
+                signUp(email, password, cPassword, "0");
             }
         });
     }
 
-    private void signUp(final String email, final String password, final String rPassword){
-
-        mRequestQueue = Volley.newRequestQueue(getContext());
-
+    public void signUp(final String email, final String password, final String rPassword, final String request){
         mStringRequest = new StringRequest(Request.Method.POST, REGISTER, new Response.Listener<String>() {
-
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     int success = jsonObject.getInt("success");
                     String message = jsonObject.getString("message");
-                    Log.e("TAG", "onResponse: "+message );
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(),"Lỗi kết nối. Vui lòng thử lại!",Toast.LENGTH_LONG).show();
+                Toast.makeText(context,"Lỗi kết nối. Vui lòng thử lại!",Toast.LENGTH_LONG).show();
             }
         }) {
             @Override
@@ -107,11 +106,12 @@ public class SignUpFragment extends Fragment {
                 params.put("email",email);
                 params.put("password1",password);
                 params.put("password2",rPassword);
+                params.put("request",request);
                 return params;
             }
         };
 
         mStringRequest.setShouldCache(false);
-        mRequestQueue.add(mStringRequest);
+        VolleySingleton.getInstance(getContext()).getRequestQueue().add(mStringRequest);
     }
 }

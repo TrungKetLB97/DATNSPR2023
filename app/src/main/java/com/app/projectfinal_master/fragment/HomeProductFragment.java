@@ -3,14 +3,23 @@ package com.app.projectfinal_master.fragment;
 import static com.app.projectfinal_master.utils.Constant.CATEGORIES;
 import static com.app.projectfinal_master.utils.Constant.PRODUCTS;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,12 +33,15 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.app.projectfinal_master.R;
+import com.app.projectfinal_master.activity.CartActivity;
+import com.app.projectfinal_master.activity.DetailProductActivity;
 import com.app.projectfinal_master.adapter.CategoryAdapter;
 import com.app.projectfinal_master.adapter.ProductAdapter;
 import com.app.projectfinal_master.adapter.SliderAdapter;
 import com.app.projectfinal_master.model.Category;
 import com.app.projectfinal_master.model.Product;
 import com.app.projectfinal_master.model.SliderItem;
+import com.app.projectfinal_master.utils.ItemClickListener;
 import com.app.projectfinal_master.utils.VolleySingleton;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
@@ -37,6 +49,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +66,7 @@ public class HomeProductFragment extends Fragment {
     private RecyclerView.Adapter productAdapter, productSaleAdapter, categoryAdapter;
     private RecyclerView.LayoutManager newProductLayout, categoryLayout, saleProductLayout;
     private final Handler sliderHandler = new Handler();
+    private Product product;
     private int currentIndex = -1;
 
     @Override
@@ -145,6 +159,17 @@ public class HomeProductFragment extends Fragment {
         sliderHandler.postDelayed(sliderRunnable, 3000);
     }
 
+    private ItemClickListener itemClickListener = new ItemClickListener() {
+        @Override
+        public void onClick(View view, List<Object> list, int position, boolean isLongClick) {
+            Intent intent = new Intent(getContext(), DetailProductActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("product", (Serializable) list.get(position));
+            intent.putExtras(bundle);
+            someActivityResultLauncher.launch(intent);
+        }
+    };
+
     private void getNewProducts() {
         newProducts = new ArrayList<>();
         saleProducts = new ArrayList<>();
@@ -155,28 +180,30 @@ public class HomeProductFragment extends Fragment {
                     JSONArray array = new JSONArray(response);
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject object = array.getJSONObject(i);
+                        String idProduct = object.getString("id_product");
                         int idCategory = object.getInt("id_category");
-                        int idColor = object.getInt("id_color");
-                        String code = object.getString("code_product");
                         String name = object.getString("name");
-                        String image_thumb = object.getString("image_thumb");
-                        String selling_price = object.getString("selling_price");
+                        String imageThumb = object.getString("image_thumb");
+                        String sellingPrice = object.getString("selling_price");
                         int discount = object.getInt("discount");
-                        Product product = new Product(idCategory, idColor, code, name, image_thumb, selling_price);
+                        if (discount == 0) {
+                            product = new Product(idProduct, idCategory, name, imageThumb, sellingPrice, false);
+                        } else {
+                            product = new Product(idProduct, idCategory, name, imageThumb, sellingPrice, true);
+                            saleProducts.add(product);
+                        }
                         newProducts.add(product);
-                        if (discount != 0) saleProducts.add(product);
-
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
                 }
 
-                productAdapter = new ProductAdapter(getContext(), newProducts);
+                productAdapter = new ProductAdapter(getContext(), newProducts, itemClickListener);
                 rcvNewProducts.setLayoutManager(newProductLayout);
                 rcvNewProducts.setAdapter(productAdapter);
 
-                productAdapter = new ProductAdapter(getContext(), saleProducts);
+                productAdapter = new ProductAdapter(getContext(), saleProducts, itemClickListener);
                 rcvSaleProducts.setLayoutManager(saleProductLayout);
                 rcvSaleProducts.setAdapter(productAdapter);
             }
@@ -231,4 +258,16 @@ public class HomeProductFragment extends Fragment {
         VolleySingleton.getInstance(getContext()).getRequestQueue().add(stringRequest);
     }
 
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // Here, no request code
+                        Intent data = result.getData();
+
+                    }
+                }
+            });
 }

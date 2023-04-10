@@ -3,6 +3,8 @@ package com.app.projectfinal_master.data;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.google.gson.Gson;
+
 public class MySharedPreferences {
     public static final String MY_SHARED_PREFERENCES = "MY_SHARED_PREFERENCES";
     private Context mContext;
