@@ -30,7 +30,6 @@ import com.app.projectfinal_master.activity.PersonalizationActivity;
 import com.app.projectfinal_master.activity.SettingActivity;
 import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.model.User;
-import com.google.android.material.tabs.TabLayout;
 
 public class UserFragment extends Fragment {
     private View view;
@@ -62,17 +61,17 @@ public class UserFragment extends Fragment {
 
     private void initView() {
         toolbar = view.findViewById(R.id.toolbar);
-        tvNameUser = view.findViewById(R.id.tv_name_user);
+        tvNameUser = view.findViewById(R.id.tv_username);
     }
 
     private void checkExitsData() {
         if (DataLocalManager.getUser() != null) {
             user = DataLocalManager.getUser();
-            tvNameUser.setText(String.format("Hello, %s", user.getNameUser()));
+            tvNameUser.setText(String.format("Hello, %s", user.getUsername()));
             tvNameUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getContext(), PersonalizationActivity.class));
+                    someActivityResultLauncher.launch(new Intent(getActivity(), PersonalizationActivity.class));
                 }
             });
         } else {
@@ -123,7 +122,8 @@ public class UserFragment extends Fragment {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // Here, no request code
                         Intent data = result.getData();
-                        startActivity(new Intent(getContext(), PersonalizationActivity.class));
+//                        startActivity(new Intent(getContext(), PersonalizationActivity.class));
+                        checkExitsData();
                     }
                 }
             });

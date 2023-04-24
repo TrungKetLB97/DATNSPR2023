@@ -92,7 +92,6 @@ public class DeliveryAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 someActivityResultLauncher.launch(new Intent(DeliveryAddressActivity.this, AddDeliveryAddressActivity.class));
-//                finish();
             }
         });
     }
@@ -106,7 +105,7 @@ public class DeliveryAddressActivity extends AppCompatActivity {
     }
 
     private void addItem(Address address) {
-        List<Address> addressList = new ArrayList<>();
+        List<Address> addressList = new ArrayList<>(deliveryAddressAdapter.getCurrentList());
         addressList.add(address);
         deliveryAddressAdapter.submitList(addressList);
     }
@@ -127,6 +126,7 @@ public class DeliveryAddressActivity extends AppCompatActivity {
             @Override
             public void onResponse(String response) {
                 progressBar.setVisibility(View.GONE);
+                Log.e("TAG", "onResponse: "+ response);
                 try {
                     JSONArray array = new JSONArray(response);
                     for (int i = 0; i < array.length(); i++) {

@@ -174,7 +174,7 @@ public class HomeProductFragment extends Fragment {
 
     private void setRecyclerViewCategories() {
         categoryAdapter = new CategoryAdapter(getContext(), categories);
-        categoryLayout = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
+        categoryLayout = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
         rcvCategories.setLayoutManager(categoryLayout);
         rcvCategories.setAdapter(categoryAdapter);
     }

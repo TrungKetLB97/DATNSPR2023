@@ -114,7 +114,7 @@ public class UpdateEmailActivity extends AppCompatActivity {
         });
     }
 
-    public void updateUsername(Context context, String idUser, String email) {
+    public void updateUsername(Context context, String idUser, String username) {
         mStringRequest = new StringRequest(Request.Method.POST,
                 UPDATE_EMAIL, new Response.Listener<String>() {
             @Override
@@ -127,7 +127,7 @@ public class UpdateEmailActivity extends AppCompatActivity {
                     if (success == 1) {
 //                        mProgress.setVisibility(View.GONE);
                         user = DataLocalManager.getUser();
-                        user.setEmail(email);
+                        user.setUsername(username);
                         DataLocalManager.setUser(user);
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 //                        finish();
@@ -153,7 +153,7 @@ public class UpdateEmailActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_user", idUser);
-                params.put("email", email);
+                params.put("username", username);
                 return params;
             }
         };
