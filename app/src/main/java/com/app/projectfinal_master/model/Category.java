@@ -2,13 +2,16 @@ package com.app.projectfinal_master.model;
 
 public class Category {
 
-    private int id;
-    private String sex, title, image;
+    private int idCategory;
+    private String sex, category, image;
 
-    public Category(int idCategory, String sex, String title, String image) {
-        this.id = idCategory;
+    public Category() {
+    }
+
+    public Category(int idCategory, String category, String sex, String image) {
+        this.idCategory = idCategory;
+        this.category = category;
         this.sex = sex;
-        this.title = title;
         this.image = image;
     }
 
@@ -20,20 +23,20 @@ public class Category {
         this.sex = sex;
     }
 
-    public int getId() {
-        return id;
+    public int getIdCategory() {
+        return idCategory;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdCategory(int idCategory) {
+        this.idCategory = idCategory;
     }
 
-    public String getTitle() {
-        return title;
+    public String getCategory() {
+        return category;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getImage() {

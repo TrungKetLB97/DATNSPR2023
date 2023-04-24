@@ -3,10 +3,9 @@
     android:id="@+id/tv_size"
     style="@style/DefaultText"
     android:layout_width="@dimen/_32sdp"
-    android:layout_height="@dimen/_12sdp"
+    android:layout_height="@dimen/_16sdp"
     android:layout_gravity="center"
-    android:background="@drawable/bg_stroke_border_1"
-    android:gravity="center"
-    android:text="L">
+    android:background="@drawable/bg_stroke_border_1_un_selected"
+    android:gravity="center">
 
 </androidx.appcompat.widget.AppCompatTextView>
