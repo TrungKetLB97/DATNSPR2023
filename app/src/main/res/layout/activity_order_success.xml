@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    tools:context=".activity.OrderSuccessActivity">
+
+    <ImageView
+        android:id="@+id/img_success"
+        android:layout_width="@dimen/_130sdp"
+        android:layout_height="@dimen/_130sdp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_120sdp"
+        android:layout_marginBottom="@dimen/_12sdp"
+        android:src="@drawable/order_success" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_success_title"
+        style="@style/ContainerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/img_success"
+        android:layout_centerHorizontal="true"
+        android:text="Cảm ơn bạn đã đặt hàng"
+        android:textSize="@dimen/_12sdp" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_success_content"
+        style="@style/DefaultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_success_title"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="@dimen/_24sdp"
+        android:text="Đơn đặt hàng của bạn đã đặt hàng thành công. Cảm ơn bạn đã mua sắm."
+        android:textAlignment="center"
+        android:textSize="@dimen/_12sdp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_success_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_24sdp"
+        android:layout_marginBottom="@dimen/_24sdp"
+        android:gravity="bottom"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_return_shopping"
+            style="@style/DefaultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:background="@drawable/bg_border_24"
+            android:text="Tiếp tục mua sắm"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_receipt_view"
+            style="@style/DefaultText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="@dimen/_46sdp"
+            android:background="@drawable/bg_border_24"
+            android:text="Xem đơn hàng"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</RelativeLayout>
