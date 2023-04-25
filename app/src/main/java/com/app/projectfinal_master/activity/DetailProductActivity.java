@@ -6,6 +6,7 @@ import static com.app.projectfinal_master.utils.Constant.INSERT_CART;
 import static com.app.projectfinal_master.utils.Constant.PRODUCT_DETAIL;
 import static com.app.projectfinal_master.utils.Constant.SIZE;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,6 +44,7 @@ import com.app.projectfinal_master.adapter.ColorAdapter;
 import com.app.projectfinal_master.adapter.ImageAdapter;
 import com.app.projectfinal_master.adapter.SizeAdapter;
 import com.app.projectfinal_master.data.DataLocalManager;
+import com.app.projectfinal_master.model.Address;
 import com.app.projectfinal_master.model.Cart;
 import com.app.projectfinal_master.model.Color;
 import com.app.projectfinal_master.model.Product;
@@ -180,7 +186,10 @@ public class DetailProductActivity extends AppCompatActivity {
         imgAddFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addFavorite("1");
+                if (DataLocalManager.getUser() != null)
+                    addFavorite();
+                else
+                    someActivityResultLauncher.launch(new Intent(DetailProductActivity.this, MainActivity.class));
             }
         });
     }
@@ -475,10 +484,12 @@ public class DetailProductActivity extends AppCompatActivity {
         rcvColor.setAdapter(colorAdapter);
     }
 
-    private void addFavorite(final String id_user) {
+    private void addFavorite() {
+        progressBar.setVisibility(View.VISIBLE);
         mStringRequest = new StringRequest(Request.Method.POST, FAVORITE, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressBar.setVisibility(View.GONE);
                 try {
                     JSONArray array = new JSONArray(response);
 
@@ -493,14 +504,15 @@ public class DetailProductActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(DetailProductActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(DetailProductActivity.this, "Vui lòng thử lại", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
 
                 Map<String, String> params = new HashMap<>();
-                params.put("id_user", id_user);
+                params.put("id_user", DataLocalManager.getUser().getIdUser());
                 params.put("code_product", detailProduct.getCodeProduct());
 
                 return params;
@@ -520,4 +532,17 @@ public class DetailProductActivity extends AppCompatActivity {
         }
         return imageItems;
     }
+
+    ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+                        // Here, no request code
+                        Intent data = result.getData();
+
+                    }
+                }
+            });
 }

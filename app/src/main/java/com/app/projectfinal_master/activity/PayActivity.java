@@ -209,6 +209,7 @@ public class PayActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //call action method
                 callApiCreateReceipt(context);
+                DataLocalManager.removeDataCarts();
                 dialog.dismiss();
             }
         });
@@ -338,13 +339,14 @@ public class PayActivity extends AppCompatActivity {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(context, "Đặt hàng thất bại. Xin thử lại sau.", Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params = createReceipt(DataLocalManager.getUser().getIdUser(), address.toAddress(), address.getPhoneNumber(), carts.size(), sumPrice);
+                params = createReceipt(address.toAddress(), address.getPhoneNumber(), carts.size(), sumPrice);
                 return params;
             }
         };
@@ -353,9 +355,10 @@ public class PayActivity extends AppCompatActivity {
         VolleySingleton.getInstance(context).getRequestQueue().add(mStringRequest);
     }
 
-    private Map<String, String> createReceipt(String idUser, String address, String phoneNumber, int quantity, int sumPrice) {
+    private Map<String, String> createReceipt(String address, String phoneNumber, int quantity, int sumPrice) {
         Map<String, String> params = new HashMap<>();
-        params.put("id_user", idUser);
+        params.put("id_user", DataLocalManager.getUser().getIdUser());
+        params.put("username", DataLocalManager.getUser().getUsername());
         params.put("address", address);
         params.put("phone_number", phoneNumber);
         params.put("quantity", String.valueOf(quantity));

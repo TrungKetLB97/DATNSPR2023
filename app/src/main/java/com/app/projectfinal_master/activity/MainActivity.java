@@ -113,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void callback(Object object) {
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("result", (String) gsa.getDisplayName());
+                if (gsa != null)
+                    returnIntent.putExtra("result", (String) gsa.getDisplayName());
                 setResult(RESULT_OK, returnIntent);
                 finish();
             }

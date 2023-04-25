@@ -94,11 +94,17 @@ public class DataLocalManager {
     }
 
     public static void removeDataCarts() {
-        List<Cart> carts = getCarts();
-        carts.clear();
-        Gson gson = new Gson();
-        JsonArray jsonArray = gson.toJsonTree(carts).getAsJsonArray();
-        String strJsonCart = jsonArray.toString();
-        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PREF_OBJECT_CARTS, strJsonCart);
+//        List<Cart> carts = getCarts();
+//        carts.clear();
+//        Gson gson = new Gson();
+//        JsonArray jsonArray = gson.toJsonTree(carts).getAsJsonArray();
+//        String strJsonCart = jsonArray.toString();
+//        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PREF_OBJECT_CARTS, strJsonCart);
+        DataLocalManager.getInstance().mySharedPreferences.removeData(PREF_OBJECT_CARTS);
+
+    }
+
+    public static void removeDataUser() {
+        DataLocalManager.getInstance().mySharedPreferences.removeData(PREF_OBJECT_USER);
     }
 }
