@@ -77,7 +77,6 @@ public class MenProductFragment extends Fragment {
                 products) {
             if (product.getSex().equals("Nam")) this.products.add(product);
         }
-        Log.e("TAG", "setDataProducts: " +  products.size());
         for (Product product :
                 this.products) {
             addItemSaleProducts(product);

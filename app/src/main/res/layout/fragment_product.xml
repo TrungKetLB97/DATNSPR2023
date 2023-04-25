@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical"
-    tools:context=".activity.HomeActivity">
+    tools:context=".fragment.ProductFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,14 +28,18 @@
 
                 <androidx.appcompat.widget.AppCompatEditText
                     android:id="@+id/edt_search"
-                    style="@style/Widget.AppCompat.EditText"
+                    style="@style/DefaultText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_edittext"
                     android:drawableStart="@drawable/ic_search"
                     android:drawablePadding="@dimen/_16sdp"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/search"
-                    android:padding="@dimen/_8sdp" />
+                    android:longClickable="false"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray" />
             </androidx.appcompat.widget.Toolbar>
         </com.google.android.material.appbar.AppBarLayout>
 
@@ -50,7 +54,10 @@
             app:tabGravity="fill"
             app:tabIndicatorFullWidth="false"
             app:tabIndicatorHeight="@dimen/_1sdp"
-            app:tabMode="fixed" />
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextAppearance="@style/MineCustomTabText"
+            app:tabTextColor="@color/black" />
 
         <View
             android:id="@+id/view_line"

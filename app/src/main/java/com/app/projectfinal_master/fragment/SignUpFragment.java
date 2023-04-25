@@ -83,13 +83,20 @@ public class SignUpFragment extends Fragment {
     }
 
     public void signUp(final String email, final String password, final String rPassword, final String request){
+        progressBar.setVisibility(View.VISIBLE);
         mStringRequest = new StringRequest(Request.Method.POST, REGISTER, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressBar.setVisibility(View.GONE);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
                     int success = jsonObject.getInt("success");
                     String message = jsonObject.getString("message");
+                    if (success == 0) {
+                        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(context,message,Toast.LENGTH_LONG).show();
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -97,6 +104,7 @@ public class SignUpFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBar.setVisibility(View.GONE);
                 Toast.makeText(context,"Lỗi kết nối. Vui lòng thử lại!",Toast.LENGTH_LONG).show();
             }
         }) {

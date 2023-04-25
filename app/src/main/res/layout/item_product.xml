@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_product"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:id="@+id/layout_product"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
@@ -23,19 +23,21 @@
 
     <TextView
         android:id="@+id/tv_product_name"
+        style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="@dimen/_12sdp" />
+        android:textSize="@dimen/_10sdp" />
 
     <TextView
         android:id="@+id/tv_price"
+        style="@style/DefaultText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
         android:gravity="center"
         android:textColor="@color/red"
-        android:textSize="@dimen/_12sdp"
-        android:layout_marginTop="@dimen/_8sdp"/>
+        android:textSize="@dimen/_10sdp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

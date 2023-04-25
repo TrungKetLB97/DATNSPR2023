@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,9 +18,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.app.projectfinal_master.R;
 import com.app.projectfinal_master.activity.DetailProductActivity;
 import com.app.projectfinal_master.model.Product;
-import com.app.projectfinal_master.utils.ItemClickListener;
 import com.bumptech.glide.Glide;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHolder> {
@@ -79,17 +80,18 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
-
         product = mList.get(position);
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
         holder.tvProductsName.setText(product.getName());
-        holder.tvPrice.setText(product.getSellingPrice());
+        holder.tvPrice.setText(String.format("%s đ", formatter.format(Double.parseDouble(String.valueOf(product.getSellingPrice())))));
         Glide.with(context).load(product.getImageThumb()).into(holder.imgProduct);
         holder.linearLayoutCompat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                product = mList.get(position);
                 Intent intent = new Intent(context, DetailProductActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putString("id_product", product.getIdProduct());
+                bundle.putString("code_product", product.getCodeProduct());
                 intent.putExtras(bundle);
                 view.getContext().startActivity(intent);
             }

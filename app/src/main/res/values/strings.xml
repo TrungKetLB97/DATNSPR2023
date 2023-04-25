@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ProjectFinal_master</string>
+    <string name="app_name">FCool</string>
 
     <!--    Title    -->
     <string name="sign_in">Đăng nhập</string>
@@ -10,7 +10,9 @@
     <string name="account">Tài khoản</string>
     <string name="password">Mật khẩu</string>
     <string name="c_password">Xác nhận mật khẩu</string>
+    <string name="s_password">Đổi mật khẩu</string>
     <string name="email">Email</string>
+    <string name="phone_number">Số điện thoại</string>
     <string name="name_shop">Big Shop</string>
     <string name="home">Trang chủ</string>
     <string name="notifications">Thông báo</string>
@@ -21,7 +23,8 @@
     <string name="cart">Giỏ hàng</string>
     <string name="user">Cá nhân</string>
     <string name="setting">Cài đặt</string>
-    <string name="profile">Chỉnh sửa dữ liệu cá nhân</string>
+    <string name="s_profile">Chỉnh sửa dữ liệu cá nhân</string>
+    <string name="profile">Dữ liệu cá nhân</string>
     <string name="product">Sản phẩm</string>
     <string name="sale">Giảm giá</string>
     <string name="recommend">Đề xuất</string>
@@ -37,31 +40,64 @@
     <string name="best_seller">Bán chạy</string>
     <string name="add_cart">Thêm giỏ hàng</string>
     <string name="size">Kích thước</string>
+    <string name="color">Màu sắc</string>
     <string name="sent">Gửi</string>
     <string name="ship">Vận chuyển</string>
     <string name="buy_now">Mua ngay</string>
+    <string name="pay">Thanh toán</string>
     <string name="ship_content">Miễn phí vận chuyển cho các đơn hàng trên 500.000đ</string>
     <string name="shipping_method">Phương pháp vận chuyển</string>
+    <string name="pay_method">Phương thức thanh toán</string>
+    <string name="direct_payment">Thanh toán trực tiếp</string>
+    <string name="momo_payment">Thanh toán qua ví momo</string>
     <string name="describe">Mô tả</string>
+    <string name="detail">Chi tiết</string>
     <string name="all">Tất cả</string>
     <string name="evaluate">Đánh giá</string>
     <string name="write_review">Viết đánh giá</string>
     <string name="my_order">Đơn hàng của tôi</string>
+    <string name="shopping_history">Xem lịch sử mua hàng</string>
+    <string name="my_favorite">Danh sách yêu thích</string>
     <string name="content_evaluate">Đánh giá của bạn cho sản phẩm này</string>
     <string name="write_here">Viết ở đây</string>
     <string name="comment">Để lại bình luận của bạn</string>
     <string name="empty_cart">Giỏ hàng của bạn trống</string>
     <string name="login_with">----------or----------</string>
-    <string name="address">Sổ địa chỉ</string>
+    <string name="address">Địa chỉ</string>
+    <string name="my_address">Địa chỉ của tôi</string>
+    <string name="b_address">Sổ địa chỉ</string>
+    <string name="add_address">+ Thêm địa chỉ giao hàng</string>
+    <string name="delivery_address">Địa chỉ giao hàng</string>
     <string name="nickname">Nickname</string>
+    <string name="username">Họ tên</string>
     <string name="accept">Xác nhận</string>
+    <string name="set_default">Mặc định</string>
     <string name="my_account">Quản lý tài khoản</string>
     <string name="feedback">Đánh giá và phản hồi</string>
     <string name="categories_favorite">Danh mục ưa thích</string>
     <string name="follow">Theo dõi</string>
     <string name="introduce">Giới thiệu</string>
+    <string name="info">Thông tin</string>
     <string name="filter">Sàng lọc</string>
     <string name="classify">Phân loại</string>
+    <string name="receipt">Đơn đặt hàng</string>
+    <string name="itemized_receipt">Đơn hàng</string>
+    <string name="all_receipt">Tất cả đơn hàng</string>
+    <string name="receipt_processing">Chờ xử lý</string>
+    <string name="receipt_delivering">Đang giao</string>
+    <string name="receipt_delivered">Đã giao</string>
+    <string name="receipt_canceled">Đã huỷ</string>
+    <string name="receipt_returns">Trả hàng</string>
+
+    <!-- TODO: Detail pay -->
+    <string name="retail_price">Giá bán lẻ:</string>
+    <string name="provisional">Tạm tính:</string>
+    <string name="transport_fee">Phí vận chuyển:</string>
+    <string name="guaranteed_shipping">Đảm bảo vận chuyển:</string>
+    <string name="discount">Chiết khấu:</string>
+    <string name="sum_price">Tổng cộng:</string>
+    <string name="order">Đặt hàng</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
