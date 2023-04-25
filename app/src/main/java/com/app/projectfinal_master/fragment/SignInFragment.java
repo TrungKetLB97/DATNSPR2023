@@ -3,7 +3,6 @@ package com.app.projectfinal_master.fragment;
 import static com.app.projectfinal_master.utils.Constant.LOGIN;
 import static com.app.projectfinal_master.utils.Constant.REGISTER;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.AuthFailureError;
@@ -23,18 +21,13 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.app.projectfinal_master.R;
-import com.app.projectfinal_master.activity.NameUserActivity;
+import com.app.projectfinal_master.activity.CartActivity;
+import com.app.projectfinal_master.activity.UpdateUsernameActivity;
 import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.model.User;
 import com.app.projectfinal_master.utils.CheckStateNetwork;
 import com.app.projectfinal_master.utils.ICallbackActivity;
 import com.app.projectfinal_master.utils.VolleySingleton;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.api.ApiException;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -44,7 +37,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Random;
 
 
 public class SignInFragment extends Fragment {
@@ -92,23 +85,25 @@ public class SignInFragment extends Fragment {
                 if (!CheckStateNetwork.isNetworkAvailable(getContext())) return;
                 String email = String.valueOf(edtEmail.getText());
                 String password = String.valueOf(edtPassword.getText());
-                signIn(email, password, 0);
+                signIn(email, password, "", 0);
             }
         });
     }
 
-    public void signIn(final String email, final String password, final int request) {
+    public void signIn(final String email, final String password, final String username, final int request) {
         progressBar.setVisibility(View.VISIBLE);
         mStringRequest = new StringRequest(Request.Method.POST, LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                Log.e("TAG", "onResponse: "+response );
+                progressBar.setVisibility(View.GONE);
                 try {
                     JSONObject objData = new JSONObject(response);
                     int success = objData.getInt("success");
                     String message = objData.getString("message");
                     if (success == 0) {
                         progressBar.setVisibility(View.GONE);
-                        signUpGoogleAccount(email, 1);
+                        signUpGoogleAccount(email, username, 1);
                     } else if (success == 2) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
@@ -121,27 +116,28 @@ public class SignInFragment extends Fragment {
                             String idUser = object.getString("id_user");
                             String email = object.getString("email");
                             String password = object.getString("password");
-                            String nameUser = object.getString("name_user");
+                            String username = object.getString("username");
                             String phoneNumber = object.getString("phone_number");
-                            String avatar = object.getString("avatar");
+                            String address = object.getString("address");
                             String birth = object.getString("birth");
                             String sex = object.getString("sex");
 
-                            User user = new User(idUser, email, password, nameUser, phoneNumber, avatar, birth, sex);
+                            User user = new User(idUser, email, password, username, phoneNumber, address, birth, sex);
                             DataLocalManager.setUser(user);
                             iCallbackActivity.callback(null);
                         }
                     }
                 } catch (JSONException e) {
+                    progressBar.setVisibility(View.GONE);
                     e.printStackTrace();
 //                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                progressBar.setVisibility(View.GONE);
+//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         }) {
             @Override
@@ -158,7 +154,7 @@ public class SignInFragment extends Fragment {
         VolleySingleton.getInstance(getContext()).getRequestQueue().add(mStringRequest);
     }
 
-    private void signUpGoogleAccount(final String email, final int request){
+    private void signUpGoogleAccount(final String email, final String username, final int request){
         progressBar.setVisibility(View.VISIBLE);
         mStringRequest = new StringRequest(Request.Method.POST, REGISTER, new Response.Listener<String>() {
             @Override
@@ -168,8 +164,11 @@ public class SignInFragment extends Fragment {
                     int success = jsonObject.getInt("success");
                     String message = jsonObject.getString("message");
                     progressBar.setVisibility(View.GONE);
-                    signIn(email, "", 1);
+                    if (success == 1) {
+                        signIn(email, "", username, 1);
+                    } else {
 
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -184,6 +183,7 @@ public class SignInFragment extends Fragment {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("email",email);
+                params.put("username",username);
                 params.put("request", String.valueOf(request));
                 return params;
             }

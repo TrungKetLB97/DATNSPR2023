@@ -6,13 +6,16 @@
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_add_favorite.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_back.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_cart.xml" value="0.1895" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_cross.xml" value="0.178" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_drop_down.xml" value="0.186" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_empty_favorite.xml" value="0.178" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_favorite.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_gift_card.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_giftcode.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_handle.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_home_filled.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_home_outlined.xml" value="0.1895" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_location.xml" value="0.178" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_next.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_notifiaction_filled.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_notification.xml" value="0.1895" />
@@ -23,47 +26,87 @@
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_repay.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_settings.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_transport.xml" value="0.1895" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_trash.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-anydpi/ic_undo.xml" value="0.178" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-hdpi/custom_drawable_favorite.xml" value="0.1895" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_border_12.xml" value="0.186" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_border_14.xml" value="0.186" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_stroke_border_1.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_stroke_border_1_selected.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_stroke_border_1_slected.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_stroke_border_1_un_selected.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_stroke_border_20_bottom_left_right.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/bg_stroke_border_20_right_top_bottom.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/custom_bg_btn_gray.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/custom_bg_dialog_blue.xml" value="0.178" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/custom_bg_dialog_white.xml" value="0.178" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/custom_drawable_bottom_nav_home.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/custom_drawable_bottom_nav_notifications.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/custom_drawable_bottom_nav_user.xml" value="0.1895" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/custom_drawable_favorite.xml" value="0.1895" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/ic_close.xml" value="0.121" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/rounded_background.xml" value="0.178" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/rounded_edittext.xml" value="0.178" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/drawable/style_spinner.xml" value="0.186" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/action_bar_notification_icon.xml" value="0.20427350427350427" />
-        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_cart.xml" value="0.2" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_add_delivery_address.xml" value="0.4" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_address.xml" value="0.176" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_cart.xml" value="0.536" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_delivery_address.xml" value="0.264" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_detail_product.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_home.xml" value="0.152" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_itemized_receipt.xml" value="0.264" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_main.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_name_user.xml" value="0.264" />
-        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_pay.xml" value="0.2" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_order_success.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_pay.xml" value="0.4" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_personalization.xml" value="0.20512820512820512" />
-        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_product_arrange.xml" value="0.264" />
-        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_profile.xml" value="0.4" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_product_arrange.xml" value="0.176" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_profile.xml" value="0.2" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_receipt.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_search.xml" value="0.264" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_setting.xml" value="0.264" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_splash.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_update_address.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_update_email.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_update_password.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_update_phone_number.xml" value="0.152" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_update_profile.xml" value="0.264" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/activity_update_username.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/custom_dialog_accept.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/dialog_evaluate.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/dialog_question.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_home_product.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_men_product.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_producg.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_product.xml" value="0.15081521739130435" />
-        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_sign_in.xml" value="0.264" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_receipt.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_sign_in.xml" value="0.2" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_sign_up.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_user.xml" value="0.264" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_woman_product.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_address.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_cart.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_category.xml" value="0.8" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_color.xml" value="0.4" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_delivery_address.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_detail_product.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_itemized_receipt.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_pay_product.xml" value="0.536" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_product.xml" value="0.20512820512820512" />
-        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_size.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_receipt.xml" value="0.264" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_size.xml" value="0.2" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_slider_container.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/menu/menu_arrange.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/menu/menu_cart.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/menu/menu_detail_product.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/menu/menu_home.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/menu/menu_search.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/menu/menu_user.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/menu/notification_menu.xml" value="0.1" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.178" />
         <entry key="..\:/Users/Public/ProjectFinal_master/app/src/main/res/drawable-anydpi/ic_drop_down.xml" value="0.186" />
         <entry key="..\:/Users/Public/ProjectFinal_master/app/src/main/res/drawable-xhdpi/bg_border_20_start_top_bottom.xml" value="0.186" />
         <entry key="..\:/Users/Public/ProjectFinal_master/app/src/main/res/drawable/bg_border_20_bottom_left_right.xml" value="0.186" />

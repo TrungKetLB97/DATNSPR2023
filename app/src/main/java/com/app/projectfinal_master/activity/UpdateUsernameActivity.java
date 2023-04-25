@@ -1,15 +1,17 @@
 package com.app.projectfinal_master.activity;
 
-import static com.app.projectfinal_master.utils.Constant.UPDATE_NAME_USER;
+import static com.app.projectfinal_master.utils.Constant.UPDATE_USERNAME;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +26,7 @@ import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.model.User;
 import com.app.projectfinal_master.utils.CheckStateNetwork;
 import com.app.projectfinal_master.utils.VolleySingleton;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,55 +34,46 @@ import org.json.JSONObject;
 import java.util.HashMap;
 import java.util.Map;
 
-public class NameUserActivity extends AppCompatActivity {
+public class UpdateUsernameActivity extends AppCompatActivity {
     private StringRequest mStringRequest;
     private Button btnAccept;
-    private EditText edtNickname;
-    private ImageView imgBack, imgDelete;
+    private EditText edtUsername;
+    private ImageView imgBack;
     private User user;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_name_user);
+        setContentView(R.layout.activity_update_username);
         initView();
         getDataExist();
         addTextChangedListenerEditTextName();
-        setViewButton();
         setEventClickBackImage();
     }
 
     private void initView() {
         user = DataLocalManager.getUser();
         btnAccept = findViewById(R.id.btn_accept);
-        edtNickname = findViewById(R.id.edt_nickname);
+        edtUsername = findViewById(R.id.edt_username);
         imgBack = findViewById(R.id.img_back);
-        imgDelete = findViewById(R.id.img_delete);
+        progressBar = findViewById(R.id.progress);
     }
 
     private void getDataExist() {
-        edtNickname.setText(user.getNameUser());
+        edtUsername.setText(user.getUsername());
     }
 
     private void setViewButton() {
-        String nickname = edtNickname.getText().toString().trim();
-        if (!nickname.isEmpty() && !edtNickname.getText().toString().equals(user.getNameUser())) {
-            btnAccept.setBackgroundResource(R.color.black);
+        String nickname = edtUsername.getText().toString().trim();
+        if (!nickname.isEmpty() && !edtUsername.getText().toString().equals(user.getUsername())) {
+            btnAccept.setBackgroundTintList(this.getColorStateList(R.color.black));
             setOnClickButtonAccept();
             return;
         }
-        btnAccept.setBackgroundResource(R.color.gray_dark);
+        btnAccept.setBackgroundTintList(this.getColorStateList(R.color.gray));
         btnAccept.setClickable(false);
 
-    }
-
-    private void setImageViewEditText() {
-        String nickname = edtNickname.getText().toString().trim();
-        if (nickname.isEmpty()) {
-            imgDelete.setVisibility(View.INVISIBLE);
-        } else {
-            imgDelete.setVisibility(View.VISIBLE);
-        }
     }
 
     private void setEventClickBackImage() {
@@ -95,27 +89,22 @@ public class NameUserActivity extends AppCompatActivity {
         btnAccept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!CheckStateNetwork.isNetworkAvailable(NameUserActivity.this)) return;
-                user.setNameUser(edtNickname.getText().toString());
-                DataLocalManager.setUser(user);
-                updateNickname(NameUserActivity.this, user.getIdUser(), user.getNameUser());
-                finish();
+                if (!CheckStateNetwork.isNetworkAvailable(UpdateUsernameActivity.this)) return;
+                String username = edtUsername.getText().toString();
+                updateUsername(UpdateUsernameActivity.this, user.getIdUser(), username);
             }
         });
     }
 
-
     private void addTextChangedListenerEditTextName() {
-        edtNickname.addTextChangedListener(new TextWatcher() {
+        edtUsername.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                setImageViewEditText();
                 setViewButton();
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                setImageViewEditText();
                 setViewButton();
             }
 
@@ -125,11 +114,13 @@ public class NameUserActivity extends AppCompatActivity {
         });
     }
 
-    public void updateNickname(Context context, String idUser, String data) {
+    public void updateUsername(Context context, String idUser, String username) {
+        progressBar.setVisibility(View.VISIBLE);
         mStringRequest = new StringRequest(Request.Method.POST,
-                UPDATE_NAME_USER, new Response.Listener<String>() {
+                UPDATE_USERNAME, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
+                progressBar.setVisibility(View.GONE);
                 try {
                     JSONObject jsonObject = new JSONObject(response);
 
@@ -137,20 +128,20 @@ public class NameUserActivity extends AppCompatActivity {
                     String message = jsonObject.getString("message");
                     if (success == 1) {
 //                        mProgress.setVisibility(View.GONE);
-                        User user = DataLocalManager.getUser();
-                        user.setNameUser(data);
+                        user = DataLocalManager.getUser();
+                        user.setUsername(username);
                         DataLocalManager.setUser(user);
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                         finish();
                     }
                     if (success == 0) {
 //                        mProgress.setVisibility(View.GONE);
-                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
 //                    mProgress.setVisibility(View.GONE);
-                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(context, e.toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -164,7 +155,7 @@ public class NameUserActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_user", idUser);
-                params.put("name_user", data);
+                params.put("username", username);
                 return params;
             }
         };

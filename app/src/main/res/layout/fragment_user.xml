@@ -26,7 +26,7 @@
                 android:background="@color/background"
                 app:menu="@menu/menu_user" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/background"
@@ -36,20 +36,21 @@
                 android:paddingBottom="@dimen/_8sdp">
 
                 <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tv_name_user"
+                    android:id="@+id/tv_username"
                     style="@style/ContainerText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_8sdp"
                     android:layout_marginEnd="@dimen/_8sdp"
-                    android:layout_marginBottom="@dimen/_32sdp"
                     android:background="@color/background"
+                    android:gravity="center_vertical"
                     android:text="Hello, mr siro"
-                    android:textSize="@dimen/_14sdp" />
+                    android:textSize="@dimen/_12sdp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_username"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:layout_weight="3"
@@ -80,7 +81,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Voucher" />
+                            android:text="Phiếu giảm giá" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -108,7 +109,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Point" />
+                            android:text="Điểm" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -135,10 +136,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Gift card" />
+                            android:text="Thẻ quà tặng" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
                 </androidx.appcompat.widget.LinearLayoutCompat>
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            </RelativeLayout>
         </com.google.android.material.appbar.AppBarLayout>
 
         <View
@@ -153,17 +154,37 @@
             android:orientation="vertical"
             android:padding="@dimen/_8sdp">
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_my_order"
-                style="@style/ContainerText"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_receipt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginEnd="@dimen/_8sdp"
-                android:layout_marginBottom="@dimen/_8sdp"
-                android:background="@color/background"
-                android:text="@string/my_order"
-                android:textSize="@dimen/_14sdp" />
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/ContainerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/background"
+                    android:padding="@dimen/_8sdp"
+                    android:text="@string/my_order"
+                    android:textSize="@dimen/_12sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/HintText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:background="@color/background"
+                    android:drawableEnd="@drawable/ic_next"
+                    android:padding="@dimen/_8sdp"
+                    android:text="@string/shopping_history"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/gray_dark"
+                    android:textSize="@dimen/_10sdp"
+                    tools:ignore="RtlCompat" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -196,7 +217,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Voucher" />
+                        android:text="Đang xử lý" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -222,7 +243,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Point" />
+                        android:text="Đã vận chuyển" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
                 <androidx.appcompat.widget.LinearLayoutCompat
@@ -239,7 +260,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_8sdp"
                         android:gravity="center"
-                        android:src="@drawable/ic_gift_card"
+                        android:src="@drawable/ic_repay"
                         android:tint="@color/black"
                         app:tint="@color/black" />
 
@@ -249,7 +270,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Gift card" />
+                        android:text="Trả lại" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -259,10 +280,61 @@
             android:layout_height="@dimen/_8sdp"
             android:background="@color/gray_dark" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tv_my_favorite"
+            style="@style/ContainerText"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginEnd="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:background="@color/background"
+            android:text="@string/my_favorite"
+            android:textSize="@dimen/_12sdp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_my_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout_empty_favorite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="@dimen/_60sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_8sdp"
+                android:src="@drawable/ic_empty_favorite" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/DefaultText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/_32sdp"
+                android:layout_marginEnd="@dimen/_32sdp"
+                android:gravity="center"
+                android:text="Thêm mục yêu thích vào danh sách mong muốn
+của bạn ngay bây giờ" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                style="@style/DefaultText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="@dimen/_24sdp"
+                android:background="@drawable/bg_stroke_border_1_un_selected"
+                android:padding="@dimen/_16sdp"
+                android:text="Đi mua sắm"
+                android:textAllCaps="false" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 
 </androidx.core.widget.NestedScrollView>

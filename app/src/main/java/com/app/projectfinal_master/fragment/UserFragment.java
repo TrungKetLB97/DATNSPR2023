@@ -20,6 +20,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
@@ -27,10 +28,10 @@ import com.app.projectfinal_master.R;
 import com.app.projectfinal_master.activity.CartActivity;
 import com.app.projectfinal_master.activity.MainActivity;
 import com.app.projectfinal_master.activity.PersonalizationActivity;
+import com.app.projectfinal_master.activity.ReceiptActivity;
 import com.app.projectfinal_master.activity.SettingActivity;
 import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.model.User;
-import com.google.android.material.tabs.TabLayout;
 
 public class UserFragment extends Fragment {
     private View view;
@@ -41,6 +42,8 @@ public class UserFragment extends Fragment {
     private User user;
 
     private TextView tvNameUser;
+
+    private LinearLayoutCompat layoutReceipt;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,22 +60,33 @@ public class UserFragment extends Fragment {
         initView();
         checkExitsData();
         setViewActionBar();
+        eventClickReceiptLayout();
         return view;
     }
 
     private void initView() {
         toolbar = view.findViewById(R.id.toolbar);
-        tvNameUser = view.findViewById(R.id.tv_name_user);
+        tvNameUser = view.findViewById(R.id.tv_username);
+        layoutReceipt = view.findViewById(R.id.layout_receipt);
+    }
+
+    private void eventClickReceiptLayout() {
+        layoutReceipt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                someActivityResultLauncher.launch(new Intent(getActivity(), ReceiptActivity.class));
+            }
+        });
     }
 
     private void checkExitsData() {
         if (DataLocalManager.getUser() != null) {
             user = DataLocalManager.getUser();
-            tvNameUser.setText(String.format("Hello, %s", user.getNameUser()));
+            tvNameUser.setText(String.format("Hello, %s", user.getUsername()));
             tvNameUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivity(new Intent(getContext(), PersonalizationActivity.class));
+                    someActivityResultLauncher.launch(new Intent(getActivity(), PersonalizationActivity.class));
                 }
             });
         } else {
@@ -123,7 +137,8 @@ public class UserFragment extends Fragment {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         // Here, no request code
                         Intent data = result.getData();
-                        startActivity(new Intent(getContext(), PersonalizationActivity.class));
+//                        startActivity(new Intent(getContext(), PersonalizationActivity.class));
+                        checkExitsData();
                     }
                 }
             });

@@ -4,6 +4,7 @@ import static com.app.projectfinal_master.utils.Constant.PRODUCT_DETAIL;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +36,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
 
     private ICallbackActivity iCallbackActivity;
     private ItemClickListener itemClickListener;
@@ -49,7 +51,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     private Cart cart;
     private Product product;
 
-    public CardAdapter(Context context, List<Cart> mList, ICallbackActivity iCallbackActivity, ItemClickListener itemClickListener) {
+    public CartAdapter(Context context, List<Cart> mList, ICallbackActivity iCallbackActivity, ItemClickListener itemClickListener) {
         this.mContext = context;
         this.mList = mList;
         this.iCallbackActivity = iCallbackActivity;
@@ -59,8 +61,7 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private CheckBox checkBox;
-        private Spinner size;
-        private TextView tvQuantity, tvPrice, tvName;
+        private TextView tvQuantity, tvPrice, tvName, tvColor, tvSize;
         private ImageView imgProduct, imgFavorite;
         private Button btnReduce, btnIncrease;
         private StringRequest mStringRequest;
@@ -68,7 +69,8 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         public ViewHolder(View view) {
             super(view);
             checkBox = view.findViewById(R.id.check_box);
-            size = view.findViewById(R.id.spinner);
+            tvColor = view.findViewById(R.id.tv_color);
+            tvSize = view.findViewById(R.id.tv_size);
             tvQuantity = view.findViewById(R.id.tv_quantity);
             tvPrice = view.findViewById(R.id.tv_price);
             tvName = view.findViewById(R.id.tv_product_name);
@@ -91,16 +93,31 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         cart = mList.get(position);
         product = cart.getProduct();
+        DecimalFormat formatter = new DecimalFormat("###,###,###");
+        holder.checkBox.setChecked(cart.isChose());
         holder.tvName.setText(product.getName());
-        holder.tvPrice.setText(product.getSellingPrice());
+        holder.tvColor.setText("Màu sắc: " + product.getColor());
+        holder.tvSize.setText("Size: " + product.getSize());
+        holder.tvPrice.setText(String.format("%s đ", formatter.format(Double.parseDouble(String.valueOf(product.getSellingPrice())))));
         holder.tvQuantity.setText(String.valueOf(cart.getQuantity()));
         Glide.with(mContext).load(product.getImageThumb()).into(holder.imgProduct);
+        setOnClickCheckBox(holder, cart, position);
         setOnClickButtonReduce(holder, cart, position);
         setOnClickButtonIncrease(holder, cart, position);
         holder.imgProduct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                itemClickListener.onClick(holder.itemView, Collections.singletonList(mList), position, false);
+                itemClickListener.onClick(holder.itemView, null, position, false);
+            }
+        });
+    }
+
+    private void setOnClickCheckBox(@NonNull ViewHolder holder, Cart cart, int position) {
+        holder.checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cart.setChose(holder.checkBox.isChecked());
+                iCallbackActivity.callback(cart);
             }
         });
     }
@@ -112,14 +129,13 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
                 if (cart.getQuantity() > 1) {
                     cart.setQuantity(cart.getQuantity() - 1);
                     holder.tvQuantity.setText(String.valueOf(cart.getQuantity()));
-                    DataLocalManager.changeDataCart(cart, position);
-                } else {
-                    DataLocalManager.removeDataCart(position);
-                    mList.clear();
-                    if (DataLocalManager.getCarts().size() == 0) {
-                    } else {
-                        mList.addAll(DataLocalManager.getCarts());
-                    }
+                    if (DataLocalManager.getUser() == null)
+                        DataLocalManager.changeDataCart(cart, position);
+                } else if (cart.getQuantity() == 1){
+                    if (DataLocalManager.getUser() == null)
+                        DataLocalManager.removeDataCart(position);
+                    cart.setQuantity(cart.getQuantity() - 1);
+                    mList.remove(position);
                     notifyDataSetChanged();
                 }
                 iCallbackActivity.callback(cart);
@@ -131,12 +147,11 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.ViewHolder> {
         holder.btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 cart.setQuantity(cart.getQuantity() + 1);
                 holder.tvQuantity.setText(String.valueOf(cart.getQuantity()));
-                DataLocalManager.changeDataCart(cart, position);
+                if (DataLocalManager.getUser() == null)
+                    DataLocalManager.changeDataCart(cart, position);
                 iCallbackActivity.callback(cart);
-
             }
         });
     }
