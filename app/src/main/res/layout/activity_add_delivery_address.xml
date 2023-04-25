@@ -91,6 +91,8 @@
             app:boxCornerRadiusBottomStart="@dimen/_12sdp"
             app:boxCornerRadiusTopEnd="@dimen/_12sdp"
             app:boxCornerRadiusTopStart="@dimen/_12sdp"
+            app:counterEnabled = "true"
+            app:counterMaxLength = "10"
             app:endIconMode="clear_text"
             app:errorEnabled="true"
             app:errorTextColor="@color/red"
@@ -101,6 +103,7 @@
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:maxLines="1"
                 android:textColor="@color/black"
                 android:textSize="@dimen/_10sdp" />

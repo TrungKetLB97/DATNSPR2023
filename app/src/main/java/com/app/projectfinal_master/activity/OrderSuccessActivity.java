@@ -33,8 +33,8 @@ public class OrderSuccessActivity extends AppCompatActivity {
         btnReceiptView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-//                finish();
+                startActivity(new Intent(OrderSuccessActivity.this, ReceiptActivity.class));
+                finish();
             }
         });
     }
@@ -44,6 +44,7 @@ public class OrderSuccessActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(OrderSuccessActivity.this, HomeActivity.class));
+                finish();
             }
         });
     }

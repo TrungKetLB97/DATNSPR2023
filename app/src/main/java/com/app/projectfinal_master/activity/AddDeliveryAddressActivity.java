@@ -92,6 +92,7 @@ public class AddDeliveryAddressActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 someActivityResultLauncher.launch(new Intent(AddDeliveryAddressActivity.this, AddressActivity.class));
+//                finish();
             }
         });
     }
@@ -149,8 +150,9 @@ public class AddDeliveryAddressActivity extends AppCompatActivity {
         StringRequest mStringRequest = new StringRequest(Request.Method.POST, INSERT_ADDRESS, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                progressBar.setVisibility(View.GONE);
                 try {
+                    progressBar.setVisibility(View.GONE);
+
                     JSONObject object = new JSONObject(response);
                     finish();
                 } catch (JSONException e) {

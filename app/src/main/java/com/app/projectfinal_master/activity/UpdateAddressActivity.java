@@ -110,7 +110,7 @@ public class UpdateAddressActivity extends AppCompatActivity {
         });
     }
 
-    public void updateUsername(Context context, String idUser, String username) {
+    public void updateUsername(Context context, String idUser, String address) {
         mStringRequest = new StringRequest(Request.Method.POST,
                 UPDATE_ADDRESS, new Response.Listener<String>() {
             @Override
@@ -123,7 +123,7 @@ public class UpdateAddressActivity extends AppCompatActivity {
                     if (success == 1) {
 //                        mProgress.setVisibility(View.GONE);
                         user = DataLocalManager.getUser();
-                        user.setUsername(username);
+                        user.setAddress(address);
                         DataLocalManager.setUser(user);
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 //                        finish();
@@ -149,7 +149,7 @@ public class UpdateAddressActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_user", idUser);
-                params.put("username", username);
+                params.put("address", address);
                 return params;
             }
         };

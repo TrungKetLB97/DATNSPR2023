@@ -83,12 +83,12 @@ public class UserFragment extends Fragment {
         if (DataLocalManager.getUser() != null) {
             user = DataLocalManager.getUser();
             tvNameUser.setText(String.format("Hello, %s", user.getUsername()));
-            tvNameUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    someActivityResultLauncher.launch(new Intent(getActivity(), PersonalizationActivity.class));
-                }
-            });
+//            tvNameUser.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    someActivityResultLauncher.launch(new Intent(getActivity(), PersonalizationActivity.class));
+//                }
+//            });
         } else {
             tvNameUser.setText(R.string.out_in);
             tvNameUser.setOnClickListener(new View.OnClickListener() {

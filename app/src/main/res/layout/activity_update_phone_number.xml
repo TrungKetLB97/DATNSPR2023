@@ -68,7 +68,7 @@
                 android:text="+84" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_username"
+                android:id="@+id/til_phone_number"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

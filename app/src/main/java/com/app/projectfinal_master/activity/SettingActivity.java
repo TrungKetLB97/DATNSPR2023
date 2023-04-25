@@ -14,6 +14,7 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.toolbox.ClearCacheRequest;
 import com.app.projectfinal_master.R;
 import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.utils.ICallbackActivity;
@@ -33,6 +34,7 @@ public class SettingActivity extends AppCompatActivity {
         getExistData();
         setEventClickProfile();
         eventClickBackImg();
+        setOnClickButtonSignOut();
     }
 
     private void initView() {
@@ -120,7 +122,11 @@ public class SettingActivity extends AppCompatActivity {
         btnSignOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DataLocalManager.removeDataUser();
+                Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
             }
         });
     }
