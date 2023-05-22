@@ -1,8 +1,9 @@
 package com.app.projectfinal_master.activity;
 
-import androidx.activity.result.ActivityResult;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -28,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
     private ViewPager2 viewPager2;
+    private AppCompatImageView imgClose;
     private FragmentManager fragmentManager;
     private SignInFragmentAdapter signInFragmentAdapter;
 
-    private Button btnLoginGoogle;
+    private LinearLayoutCompat layoutLoginWithGoogle;
     public GoogleSignInOptions gso;
     public GoogleSignInClient gsc;
     public GoogleSignInAccount gsa;
@@ -40,36 +42,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initView();
         setFragmentManager();
         setContentViewPager();
         setOnClickLoginGoogleButton();
         getEventSelectedTabLayout();
         registerGoogleRequest();
+        eventClickCloseButton();
     }
 
     private void initView()
     {
         tabLayout = findViewById(R.id.tab_select);
         viewPager2 = findViewById(R.id.view_pager);
-        btnLoginGoogle = findViewById(R.id.btn_login_google);
+        layoutLoginWithGoogle = findViewById(R.id.layout_login_with_google);
+        imgClose = findViewById(R.id.img_close);
+    }
+
+    private void eventClickCloseButton() {
+        imgClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void setFragmentManager()
     {
         fragmentManager = getSupportFragmentManager();
         signInFragmentAdapter = new SignInFragmentAdapter(fragmentManager, getLifecycle());
-        signInFragmentAdapter.setCallbackActivity(new ICallbackActivity() {
-            @Override
-            public void callback(Object object) {
-                Intent returnIntent = new Intent();
-                returnIntent.putExtra("result", (String) gsa.getDisplayName());
-                Log.e("TAG", "callback: gsa"+  gsa.getDisplayName());
-                setResult(RESULT_OK, returnIntent);
-                finish();
-            }
-        });
+        setDataCallBackActivity();
     }
 
     private void setContentViewPager()
@@ -106,16 +109,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setDataCallBackActivity() {
-//        signInFragmentAdapter.setCallbackActivity(new ICallbackActivity() {
-//            @Override
-//            public void callback(Object object) {
-//                Intent returnIntent = new Intent();
-//                returnIntent.putExtra("result", (String) gsa.getDisplayName());
-//                Log.e("TAG", "callback: gsa"  +  gsa.getDisplayName());
-//                setResult(RESULT_OK);
-//                finish();
-//            }
-//        });
+        signInFragmentAdapter.setCallbackActivity(new ICallbackActivity() {
+            @Override
+            public void callback(Object object) {
+                Intent returnIntent = new Intent();
+                if (gsa != null)
+                    returnIntent.putExtra("result", (String) gsa.getDisplayName());
+                setResult(RESULT_OK, returnIntent);
+                finish();
+            }
+        });
     }
 
     private void registerGoogleRequest() {
@@ -124,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setOnClickLoginGoogleButton() {
-        btnLoginGoogle.setOnClickListener(new View.OnClickListener() {
+        layoutLoginWithGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!CheckStateNetwork.isNetworkAvailable(MainActivity.this)) return;
@@ -147,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
                 task.getResult(ApiException.class);
                 gsa = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
                 assert gsa != null;
-                signInFragmentAdapter.signInFragment.signIn(gsa.getEmail(), "", 1);
-                setDataCallBackActivity();
+                signInFragmentAdapter.signInFragment.signIn(gsa.getEmail(), "", gsa.getDisplayName(), 1);
+//                setDataCallBackActivity();
             } catch (ApiException e) {
                 e.printStackTrace();
             }

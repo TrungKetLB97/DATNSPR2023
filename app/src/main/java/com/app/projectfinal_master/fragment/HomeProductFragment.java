@@ -1,20 +1,13 @@
 package com.app.projectfinal_master.fragment;
 
-import static com.app.projectfinal_master.utils.Constant.CATEGORIES;
-import static com.app.projectfinal_master.utils.Constant.PRODUCTS;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -28,28 +21,16 @@ import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.app.projectfinal_master.R;
-import com.app.projectfinal_master.activity.CartActivity;
-import com.app.projectfinal_master.activity.DetailProductActivity;
 import com.app.projectfinal_master.adapter.CategoryAdapter;
 import com.app.projectfinal_master.adapter.ProductAdapter;
 import com.app.projectfinal_master.adapter.SliderAdapter;
 import com.app.projectfinal_master.model.Category;
 import com.app.projectfinal_master.model.Product;
 import com.app.projectfinal_master.model.SliderItem;
-import com.app.projectfinal_master.utils.ItemClickListener;
-import com.app.projectfinal_master.utils.VolleySingleton;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,15 +39,14 @@ public class HomeProductFragment extends Fragment {
     private View view;
     private ViewPager2 viewPager2;
     private DotsIndicator indicator;
-    private SliderAdapter sliderAdapter;
-    private List<SliderItem> sliderItems;
-    private List<Product> newProducts, saleProducts;
+    private List<Product> products = new ArrayList<>();
+    private List<Product> saleProducts = new ArrayList<>();
     private List<Category> categories;
-    private RecyclerView rcvCategories, rcvNewProducts, rcvSaleProducts;
-    private RecyclerView.Adapter productAdapter, productSaleAdapter, categoryAdapter;
+    private RecyclerView rcvCategories, rcvRecommendProducts, rcvSaleProducts;
+    private RecyclerView.Adapter productAdapter, categoryAdapter;
     private RecyclerView.LayoutManager newProductLayout, categoryLayout, saleProductLayout;
     private final Handler sliderHandler = new Handler();
-    private Product product;
+    public Product product;
     private int currentIndex = -1;
 
     @Override
@@ -75,10 +55,10 @@ public class HomeProductFragment extends Fragment {
         if (view == null)
             view = inflater.inflate(R.layout.fragment_home_product, container, false);
         initView();
+//        products = new ArrayList<>();
+
         setListSliderItemTest();
         setDataIndicator();
-        getCategory();
-        getNewProducts();
         return view;
     }
 
@@ -86,20 +66,33 @@ public class HomeProductFragment extends Fragment {
         viewPager2 = view.findViewById(R.id.view_pager);
         indicator = view.findViewById(R.id.indicator);
         rcvCategories = view.findViewById(R.id.rcv_category);
-        rcvNewProducts = view.findViewById(R.id.rcv_new_products);
+        rcvRecommendProducts = view.findViewById(R.id.rcv_recommend_products);
         rcvSaleProducts = view.findViewById(R.id.rcv_sale_products);
-        newProductLayout = new GridLayoutManager(getContext(), 2);
-        saleProductLayout = new GridLayoutManager(getContext(), 2);
         categoryLayout = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
+    }
+
+    public void setDataProducts(@NonNull List<Product> products) {
+        this.products = products;
+        for (Product product :
+                products) {
+            addItemSaleProducts(product);
+        }
+        setRecyclerViewRecommendProducts();
+        setRecyclerViewSaleProducts();
+    }
+
+    public void setDataCategories(@NonNull List<Category> categories) {
+        this.categories = categories;
+        setRecyclerViewCategories();
     }
 
     private void setListSliderItemTest() {
         List<SliderItem> sliderItems = new ArrayList<>();
         sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test1));
-        sliderItems.add(new SliderItem(R.drawable.test2));
-        sliderItems.add(new SliderItem(R.drawable.test3));
-        sliderItems.add(new SliderItem(R.drawable.test4));
+        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test));
 
         setDataViewPager(sliderItems);
     }
@@ -159,103 +152,30 @@ public class HomeProductFragment extends Fragment {
         sliderHandler.postDelayed(sliderRunnable, 3000);
     }
 
-    private ItemClickListener itemClickListener = new ItemClickListener() {
-        @Override
-        public void onClick(View view, List<Object> list, int position, boolean isLongClick) {
-            Intent intent = new Intent(getContext(), DetailProductActivity.class);
-            Bundle bundle = new Bundle();
-            bundle.putSerializable("product", (Serializable) list.get(position));
-            intent.putExtras(bundle);
-            someActivityResultLauncher.launch(intent);
-        }
-    };
-
-    private void getNewProducts() {
-        newProducts = new ArrayList<>();
-        saleProducts = new ArrayList<>();
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, PRODUCTS, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response) {
-                try {
-                    JSONArray array = new JSONArray(response);
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
-                        String idProduct = object.getString("id_product");
-                        int idCategory = object.getInt("id_category");
-                        String name = object.getString("name");
-                        String imageThumb = object.getString("image_thumb");
-                        String sellingPrice = object.getString("selling_price");
-                        int discount = object.getInt("discount");
-                        if (discount == 0) {
-                            product = new Product(idProduct, idCategory, name, imageThumb, sellingPrice, false);
-                        } else {
-                            product = new Product(idProduct, idCategory, name, imageThumb, sellingPrice, true);
-                            saleProducts.add(product);
-                        }
-                        newProducts.add(product);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getContext(), e.toString(), Toast.LENGTH_LONG).show();
-                }
-
-                productAdapter = new ProductAdapter(getContext(), newProducts, itemClickListener);
-                rcvNewProducts.setLayoutManager(newProductLayout);
-                rcvNewProducts.setAdapter(productAdapter);
-
-                productAdapter = new ProductAdapter(getContext(), saleProducts, itemClickListener);
-                rcvSaleProducts.setLayoutManager(saleProductLayout);
-                rcvSaleProducts.setAdapter(productAdapter);
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
-
-            }
-        });
-        VolleySingleton.getInstance(getContext()).getRequestQueue().add(stringRequest);
+    private void setRecyclerViewRecommendProducts() {
+        productAdapter = new ProductAdapter(getContext(), products);
+        newProductLayout = new GridLayoutManager(getContext(), 2);
+        rcvRecommendProducts.setLayoutManager(newProductLayout);
+        rcvRecommendProducts.setAdapter(productAdapter);
     }
 
-    private void getCategory() {
-        categories = new ArrayList<>();
-//        progressBar.setVisibility(View.VISIBLE);
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, CATEGORIES,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-//                        progressBar.setVisibility(View.GONE);
-                        Log.e("TAG", "onResponse: " + response);
-                        try {
-                            JSONArray array = new JSONArray(response);
-                            for (int i = 0; i < array.length(); i++) {
-                                JSONObject object = array.getJSONObject(i);
-                                int id = object.getInt("id");
-                                String title = object.getString("title");
-                                String image = object.getString("image");
+    private void addItemSaleProducts(@NonNull Product product) {
+        if (product.getDiscount() == 0)
+            saleProducts.add(product);
+    }
 
-                                Category category = new Category(id, title, image);
-                                categories.add(category);
-                            }
-                        } catch (Exception e) {
-//                            Log.d("listsssssssssssssssss", String.valueOf(categories.size()));
-//                            Log.d("loiiiiiiiiiiiiiii", String.valueOf(e));
-                        }
+    private void setRecyclerViewSaleProducts() {
+        productAdapter = new ProductAdapter(getContext(), saleProducts);
+        saleProductLayout = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
+        rcvSaleProducts.setLayoutManager(saleProductLayout);
+        rcvSaleProducts.setAdapter(productAdapter);
+    }
 
-                        categoryAdapter = new CategoryAdapter(getContext(), categories);
-                        rcvCategories.setLayoutManager(categoryLayout);
-                        rcvCategories.setAdapter(categoryAdapter);
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-//                progressBar.setVisibility(View.VISIBLE);
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
-            }
-        });
-        VolleySingleton.getInstance(getContext()).getRequestQueue().add(stringRequest);
+    private void setRecyclerViewCategories() {
+        categoryAdapter = new CategoryAdapter(getContext(), categories);
+        categoryLayout = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
+        rcvCategories.setLayoutManager(categoryLayout);
+        rcvCategories.setAdapter(categoryAdapter);
     }
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,186 +7,552 @@
     android:background="@color/background"
     tools:context=".activity.PayActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:paddingRight="@dimen/_8sdp" />
-
     <RelativeLayout
-        android:id="@+id/rl_location"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:background="@color/white"
-        android:padding="@dimen/_8sdp">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_location"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_settings" />
-
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <RelativeLayout
+            android:id="@+id/layout_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_marginEnd="@dimen/_8sdp"
-            android:layout_toStartOf="@+id/img_right"
-            android:layout_toEndOf="@+id/img_location"
-            android:orientation="vertical">
+            android:layout_height="?actionBarSize"
+            android:background="@color/background">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingRight="@dimen/_8sdp" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/img_back"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:paddingStart="@dimen/_8sdp"
+                android:paddingEnd="@dimen/_8sdp"
+                android:src="@drawable/ic_back" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                style="@style/ContainerText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/pay"
+                android:textSize="@dimen/_16sdp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_content_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_toolbar"
+            android:background="@color/white"
+            android:padding="@dimen/_8sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_title_address"
                 style="@style/ContainerText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/_8sdp"
+                android:drawableStart="@drawable/ic_location"
+                android:drawablePadding="@dimen/_8sdp"
+                android:gravity="center_vertical"
                 android:text="Địa chỉ giao hàng"
                 android:textSize="@dimen/_12sdp" />
 
+            <RelativeLayout
+                android:id="@+id/layout_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_title_address"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_toStartOf="@+id/img_selected"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_username"
+                    style="@style/ContainerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/_8sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_update_phone_number"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16sdp"
+                    android:layout_toEndOf="@+id/tv_username"
+                    android:textSize="@dimen/_8sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_street"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_username"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:layout_marginBottom="@dimen/_4sdp"
+                    android:textSize="@dimen/_8sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_update_address"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_street"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginEnd="@dimen/_8sdp"
+                    android:lines="1"
+                    android:textSize="@dimen/_8sdp" />
+            </RelativeLayout>
+
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_none_address"
                 style="@style/DefaultText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="aaaaaaaaaaa"
+                android:layout_below="@+id/tv_title_address"
+                android:text="(Trống)"
                 android:textSize="@dimen/_12sdp" />
 
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/DefaultText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="aaaaaaaaaaa"
-                android:textSize="@dimen/_12sdp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/DefaultText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="aaaaaaaaaaa"
-                android:textSize="@dimen/_12sdp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
-
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_right" />
-
-    </RelativeLayout>
-
-    <!--    <View-->
-    <!--        android:id="@+id/line1"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="@dimen/_2sdp"-->
-    <!--        android:layout_below="@+id/rl_location"-->
-    <!--        android:background="@drawable/custom_line"-->
-    <!--        android:backgroundTint="@color/black"-->
-    <!--        android:foregroundGravity="top" />-->
-
-    <RelativeLayout
-        android:id="@+id/rl_shipping_method"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/rl_location"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@color/white"
-        android:padding="@dimen/_8sdp">
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_shipping_method"
-            style="@style/ContainerText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:layout_marginBottom="@dimen/_8sdp"
-            android:text="@string/shipping_method"
-            android:textSize="@dimen/_12sdp" />
-
-        <CheckBox
-            android:id="@+id/checkbox"
-            android:layout_width="@dimen/_24sdp"
-            android:layout_height="@dimen/_24sdp"
-            android:layout_below="@+id/tv_shipping_method"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center"
-            android:background="@drawable/custom_checkbox"
-            android:button="@null"
-            android:checked="true"
-            app:buttonCompat="@null" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tv_name_method"
-            style="@style/DefaultText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_shipping_method"
-            android:layout_alignBaseline="@id/checkbox"
-            android:layout_margin="@dimen/_8sdp"
-            android:layout_toEndOf="@id/checkbox"
-            android:text="ssaasfefhe"
-            android:textSize="@dimen/_12sdp" />
-
-        <androidx.appcompat.widget.AppCompatTextView
-            style="@style/HintText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_name_method"
-            android:layout_marginStart="@dimen/_8sdp"
-            android:layout_toEndOf="@id/checkbox"
-            android:text="aaaaaaaaa"
-            android:textColor="@color/gray_dark" />
-
-    </RelativeLayout>
-
-    <View
-        android:id="@+id/line2"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_below="@+id/rl_shipping_method"
-        android:background="@color/gray_dark" />
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/ll_products"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/line2"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="@dimen/_8sdp">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tv_name"
-                style="@style/ContainerText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Name"
-                android:textSize="@dimen/_12sdp" />
-
-            <androidx.appcompat.widget.AppCompatTextView
-                style="@style/DefaultText"
+            <ImageView
+                android:id="@+id/img_selected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:text="aaaaaaaaa" />
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_next" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layout_shipping_method"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_content_address"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/white"
+            android:padding="@dimen/_8sdp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_shipping_method"
+                style="@style/ContainerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="@string/shipping_method"
+                android:textSize="@dimen/_12sdp" />
+
+            <CheckBox
+                android:id="@+id/cb_shipping_method"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_below="@+id/tv_shipping_method"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_checkbox"
+                android:button="@null"
+                android:checked="true"
+                android:enabled="false"
+                android:focusable="false"
+                app:buttonCompat="@null" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_name_method"
+                style="@style/DefaultText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_shipping_method"
+                android:layout_alignBaseline="@id/cb_shipping_method"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:layout_toEndOf="@id/cb_shipping_method"
+                android:text="Giao hàng tiết kiệm"
+                android:textSize="@dimen/_12sdp" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/HintText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_name_method"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_toEndOf="@id/cb_shipping_method"
+                android:text="Đơn hàng sẽ được giao trong 3-5 ngày"
+                android:textColor="@color/gray_dark" />
 
         </RelativeLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcv_pay_cart"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout_pay_method"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_8sdp" />
+            android:layout_below="@+id/layout_shipping_method"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/_8sdp">
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tv_pay_method"
+                style="@style/ContainerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:text="@string/pay_method"
+                android:textSize="@dimen/_12sdp" />
 
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_direct_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-</RelativeLayout>
+                <CheckBox
+                    android:id="@+id/cb_direct_payment"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_below="@+id/tv_pay_method"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@null"
+                    android:checked="true"
+                    app:buttonCompat="@null" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/DefaultText"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:src="@drawable/direct_payment" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/DefaultText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_toEndOf="@id/checkbox"
+                    android:text="@string/direct_payment" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layout_momo_payment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckBox
+                    android:id="@+id/cb_zalo_payment"
+                    android:layout_width="@dimen/_24sdp"
+                    android:layout_height="@dimen/_24sdp"
+                    android:layout_below="@+id/tv_pay_method"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/custom_checkbox"
+                    android:button="@null"
+                    android:checked="true"
+                    app:buttonCompat="@null" />
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    style="@style/DefaultText"
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:src="@drawable/zalo_img" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/DefaultText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="@dimen/_8sdp"
+                    android:layout_toEndOf="@id/checkbox"
+                    android:text="@string/zalo_payment" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout_products"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_pay_method"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="@dimen/_8sdp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_name"
+                    style="@style/ContainerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Name"
+                    android:textSize="@dimen/_12sdp" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_product_count"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:text="0 sản phẩm" />
+
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcv_pay_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="2">
+
+                <TextView
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:text="Tổng cộng:"
+                    android:textSize="@dimen/_12sdp" />
+
+                <TextView
+                    android:id="@+id/tv_sum_price_tmp"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:text="999.999 đ"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/_12sdp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/layout_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_products"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/retail_price" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_retail_price"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="999.999đ"
+                    android:textAlignment="viewEnd" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/provisional" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_provisional"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="999.999đ"
+                    android:textAlignment="viewEnd" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/transport_fee" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_transport_fee"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="999.999đ"
+                    android:textAlignment="viewEnd" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/guaranteed_shipping" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_guaranteed_shipping"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="999.999đ"
+                    android:textAlignment="viewEnd" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/discount" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_discount"
+                    style="@style/DefaultText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="999.999đ"
+                    android:textAlignment="viewEnd" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout_price"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    style="@style/ContainerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/sum_price" />
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:id="@+id/tv_sum_price"
+                    style="@style/ContainerText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="999.999đ"
+                    android:textAlignment="viewEnd"
+                    android:textColor="@color/red" />
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_order"
+                style="@style/ContainerText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_16sdp"
+                android:background="@drawable/bg_border_24"
+                android:text="@string/order"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/blue"
+            android:indeterminateTintMode="src_atop"
+            android:maxHeight="10dp"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</androidx.core.widget.NestedScrollView>

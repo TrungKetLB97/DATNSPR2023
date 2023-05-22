@@ -1,44 +1,23 @@
 package com.app.projectfinal_master.adapter;
 
-import static com.app.projectfinal_master.utils.Constant.PRODUCT;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
 import com.app.projectfinal_master.R;
-import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.model.Cart;
 import com.app.projectfinal_master.model.Product;
-import com.app.projectfinal_master.utils.ICallbackActivity;
 import com.app.projectfinal_master.utils.ItemClickListener;
-import com.app.projectfinal_master.utils.VolleySingleton;
 import com.bumptech.glide.Glide;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class PayAdapter extends RecyclerView.Adapter<PayAdapter.ViewHolder> {
 

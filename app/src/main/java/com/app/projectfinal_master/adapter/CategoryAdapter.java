@@ -1,6 +1,8 @@
 package com.app.projectfinal_master.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.app.projectfinal_master.R;
+import com.app.projectfinal_master.activity.ProductArrangeActivity;
 import com.app.projectfinal_master.model.Category;
 import com.app.projectfinal_master.utils.ItemClickListener;
 import com.bumptech.glide.Glide;
@@ -74,7 +77,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         category = mList.get(position);
-        holder.tvTitle.setText(category.getTitle());
+        holder.tvTitle.setText(category.getCategory());
         Glide.with(mContext).load(category.getImage()).into(holder.imgCategory);
 
         holder.setItemClickListener(new ItemClickListener() {
@@ -83,12 +86,13 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
                 if (isLongClick) {
 
                 } else {
-//                    Intent intent = new Intent(mContext, ShowLSPActivity.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putInt("id", mListLSP.get(position).getIdLSP());
-//                    bundle.putString("ten_loai", mListLSP.get(position).getTen_loai());
-//                    intent.putExtras(bundle);
-//                    view.getContext().startActivity(intent);
+                    Intent intent = new Intent(mContext, ProductArrangeActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("id_category", mList.get(position).getIdCategory());
+                    bundle.putString("category", mList.get(position).getCategory());
+//                    bundle.putString("sex", mList.get(position).getSex());
+                    intent.putExtras(bundle);
+                    view.getContext().startActivity(intent);
                 }
             }
         });
