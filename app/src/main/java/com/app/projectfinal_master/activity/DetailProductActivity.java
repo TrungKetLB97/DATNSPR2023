@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RatingBar;
@@ -90,6 +91,7 @@ public class DetailProductActivity extends AppCompatActivity {
 
     private TextView tvName, tvPrice, tvDescribeContent;
     private Button btnAddCart;
+    private EditText edtSearch;
     private ImageView imgAddFavorite, imgReturn, imgViewAnim, imgStartAnim, imgBack;
     private View imgEndAnim;
     private Handler setDelay = new Handler();
@@ -107,14 +109,16 @@ public class DetailProductActivity extends AppCompatActivity {
         setEventClickButtonBuy();
         setEventClickButtonFavorite();
         eventClickBackImg();
+        onClickEdtSearch();
     }
 
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvName = (TextView) findViewById(R.id.tv_product_name);
+        edtSearch = findViewById(R.id.edt_search);
         tvPrice = (TextView) findViewById(R.id.tv_price);
         viewPager2 = (ViewPager2) findViewById(R.id.vp2_img_details);
-        imgAddFavorite = (ImageView) findViewById(R.id.img_add_favorite);
+//        imgAddFavorite = (ImageView) findViewById(R.id.img_add_favorite);
         imgStartAnim = (ImageView) findViewById(R.id.img_start_anim);
         imgViewAnim = (ImageView) findViewById(R.id.img_view_anim);
         imgBack = (ImageView) findViewById(R.id.img_back);
@@ -131,6 +135,15 @@ public class DetailProductActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+    }
+
+    private void onClickEdtSearch() {
+        edtSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                someActivityResultLauncher.launch(new Intent(DetailProductActivity.this, SearchActivity.class));
             }
         });
     }
@@ -153,15 +166,15 @@ public class DetailProductActivity extends AppCompatActivity {
                 startActivity(new Intent(DetailProductActivity.this, CartActivity.class));
                 finish();
                 break;
-            case R.id.a:
-
-                break;
-            case R.id.b:
-
-                break;
-            case R.id.c:
-
-                break;
+//            case R.id.a:
+//
+//                break;
+//            case R.id.b:
+//
+//                break;
+//            case R.id.c:
+//
+//                break;
             default:
                 break;
         }
@@ -183,15 +196,15 @@ public class DetailProductActivity extends AppCompatActivity {
     }
 
     private void setEventClickButtonFavorite() {
-        imgAddFavorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (DataLocalManager.getUser() != null)
-                    addFavorite();
-                else
-                    someActivityResultLauncher.launch(new Intent(DetailProductActivity.this, MainActivity.class));
-            }
-        });
+//        imgAddFavorite.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if (DataLocalManager.getUser() != null)
+//                    addFavorite();
+//                else
+//                    someActivityResultLauncher.launch(new Intent(DetailProductActivity.this, MainActivity.class));
+//            }
+//        });
     }
 
 

@@ -6,10 +6,12 @@ import static com.app.projectfinal_master.utils.Constant.CREATE_RECEIPT;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -17,6 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -27,6 +30,7 @@ import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -42,6 +46,7 @@ import com.app.projectfinal_master.adapter.PayAdapter;
 import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.model.Address;
 import com.app.projectfinal_master.model.Cart;
+import com.app.projectfinal_master.model.CreateOrder;
 import com.app.projectfinal_master.model.ItemizedReceipt;
 import com.app.projectfinal_master.model.Product;
 import com.app.projectfinal_master.utils.ItemClickListener;
@@ -57,6 +62,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import vn.zalopay.sdk.Environment;
+import vn.zalopay.sdk.ZaloPayError;
+import vn.zalopay.sdk.ZaloPaySDK;
+import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class PayActivity extends AppCompatActivity {
 
@@ -74,8 +84,8 @@ public class PayActivity extends AppCompatActivity {
 
     private ProgressBar progressBar;
 
-    private LinearLayoutCompat layoutDirectPayment, layoutMomoPayment;
-    private CheckBox cbDirectPayment, cbMomoPayment;
+    private LinearLayoutCompat layoutDirectPayment, layoutZaloPayment;
+    private CheckBox cbDirectPayment, cbZaloPayment;
 
     private RelativeLayout layoutContentAddress;
     private RelativeLayout layoutAddress;
@@ -99,8 +109,10 @@ public class PayActivity extends AppCompatActivity {
         eventClickContentAddressLayout();
         setOnClickOrderButton();
 
-        //hide momo
-        changeStateViewMomoPaymentLayout();
+        changeStatePaymentMethod();
+
+        //register zalo pay thread
+        registerZaloThread();
     }
 
     private void initView() {
@@ -108,7 +120,7 @@ public class PayActivity extends AppCompatActivity {
         layoutContentAddress = findViewById(R.id.layout_content_address);
         layoutAddress = findViewById(R.id.layout_address);
         layoutDirectPayment = findViewById(R.id.layout_direct_payment);
-        layoutMomoPayment = findViewById(R.id.layout_momo_payment);
+        layoutZaloPayment = findViewById(R.id.layout_momo_payment);
         progressBar = findViewById(R.id.progress);
         imgBack = findViewById(R.id.img_back);
         tvNoneAddress = findViewById(R.id.tv_none_address);
@@ -126,11 +138,58 @@ public class PayActivity extends AppCompatActivity {
         tvStreet = findViewById(R.id.tv_street);
         btnOrder = findViewById(R.id.btn_order);
         cbDirectPayment = findViewById(R.id.cb_direct_payment);
-        cbMomoPayment = findViewById(R.id.cb_momo_payment);
+        cbZaloPayment = findViewById(R.id.cb_zalo_payment);
     }
 
-    private void changeStateViewMomoPaymentLayout() {
-        layoutMomoPayment.setVisibility(View.GONE);
+    private void registerZaloThread() {
+        StrictMode.ThreadPolicy policy = new
+                StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+
+        // ZaloPay SDK Init
+        ZaloPaySDK.init(2553, Environment.SANDBOX);
+    }
+
+    private void changeStatePaymentMethod() {
+        if (DataLocalManager.getPayMethodDefault().equals("")) {
+            cbZaloPayment.setChecked(false);
+            cbDirectPayment.setChecked(true);
+        }
+        else {
+            cbZaloPayment.setChecked(true);
+            cbDirectPayment.setChecked(false);
+        }
+
+        cbDirectPayment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    DataLocalManager.removePayMethodDefault();
+                    cbZaloPayment.setChecked(false);
+                    cbZaloPayment.setEnabled(true);
+                }
+                else
+                {
+                    cbZaloPayment.setChecked(true);
+                    cbZaloPayment.setEnabled(false);
+                }
+            }
+        });
+        cbZaloPayment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (buttonView.isChecked()) {
+                    DataLocalManager.setPayMethodDefault("zalo");
+                    cbDirectPayment.setChecked(false);
+                    cbDirectPayment.setEnabled(true);
+                }
+                else
+                {
+                    cbDirectPayment.setChecked(true);
+                    cbDirectPayment.setEnabled(false);
+                }
+            }
+        });
     }
 
     private void eventClickBackImg() {
@@ -153,15 +212,80 @@ public class PayActivity extends AppCompatActivity {
         btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (address == null) {
-                    Toast.makeText(PayActivity.this, "Xin vui lòng chọn địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
+                if (cbDirectPayment.isChecked()) {
+                    if (address == null) {
+                        Toast.makeText(PayActivity.this, "Xin vui lòng chọn địa chỉ giao hàng", Toast.LENGTH_SHORT).show();
+                    } else {
+                        String title = "Xác nhận!";
+                        String message = "Xác nhận đặt hàng.";
+                        openDialog(PayActivity.this, title, message);
+                    }
                 } else {
-                    String title = "Xác nhận!";
-                    String message = "Xác nhận đặt hàng.";
-                    openDialog(PayActivity.this, title, message);
+                    createZaloMethod();
                 }
             }
         });
+    }
+
+    private void createZaloMethod() {
+        CreateOrder orderApi = new CreateOrder();
+        try {
+            JSONObject data = orderApi.createOrder(String.valueOf(sumPrice));
+            Log.d("Amount", String.valueOf(sumPrice));
+            String code = data.getString("return_code");
+            if (code.equals("1")) {
+                String token = data.getString("zp_trans_token");
+                ZaloPaySDK.getInstance().payOrder(PayActivity.this, token, "demozpdk://app", new PayOrderListener() {
+                    @Override
+                    public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                new AlertDialog.Builder(PayActivity.this)
+//                                        .setTitle("Payment Success")
+//                                        .setMessage(String.format("TransactionId: %s - TransToken: %s", transactionId, transToken))
+//                                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                            @Override
+//                                            public void onClick(DialogInterface dialog, int which) {
+//                                            }
+//                                        })
+//                                        .setNegativeButton("Cancel", null).show();
+//                            }
+//
+//                        });
+                    }
+
+                    @Override
+                    public void onPaymentCanceled(String zpTransToken, String appTransID) {
+//                        new AlertDialog.Builder(PayActivity.this)
+//                                .setTitle("User Cancel Payment")
+//                                .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
+//                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                    }
+//                                })
+//                                .setNegativeButton("Cancel", null).show();
+                    }
+
+                    @Override
+                    public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
+//                        new AlertDialog.Builder(PayActivity.this)
+//                                .setTitle("Payment Fail")
+//                                .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
+//                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                    }
+//                                })
+//                                .setNegativeButton("Cancel", null).show();
+                    }
+                });
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void openDialog(Context context, String title, String message) {
@@ -389,6 +513,8 @@ public class PayActivity extends AppCompatActivity {
                         Intent data = result.getData();
                         address = (Address) data.getSerializableExtra("address");
                         setDeliveryAddress(address);
+                        layoutAddress.setVisibility(View.VISIBLE);
+                        tvNoneAddress.setVisibility(View.GONE);
                     }
                 }
             });

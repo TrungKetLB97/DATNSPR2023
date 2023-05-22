@@ -95,7 +95,6 @@ public class SignInFragment extends Fragment {
         mStringRequest = new StringRequest(Request.Method.POST, LOGIN, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                Log.e("TAG", "onResponse: "+response );
                 progressBar.setVisibility(View.GONE);
                 try {
                     JSONObject objData = new JSONObject(response);

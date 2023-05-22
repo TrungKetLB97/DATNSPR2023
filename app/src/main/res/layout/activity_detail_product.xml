@@ -47,18 +47,18 @@
 
                         <androidx.appcompat.widget.AppCompatEditText
                             android:id="@+id/edt_search"
-                            style="@style/Widget.AppCompat.EditText"
+                            style="@style/DefaultText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@drawable/rounded_edittext"
                             android:drawableStart="@drawable/ic_search"
                             android:drawablePadding="@dimen/_16sdp"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray"
                             android:focusableInTouchMode="false"
                             android:hint="@string/search"
                             android:longClickable="false"
-                            android:padding="@dimen/_8sdp" />
+                            android:padding="@dimen/_8sdp"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/gray" />
                     </androidx.appcompat.widget.Toolbar>
                 </RelativeLayout>
 
@@ -351,14 +351,14 @@
         android:orientation="horizontal"
         android:padding="@dimen/_8sdp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/img_add_favorite"
-            android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_gravity="center"
-            android:layout_marginStart="@dimen/_14sdp"
-            android:layout_marginEnd="@dimen/_14sdp"
-            android:src="@drawable/custom_drawable_favorite" />
+<!--        <androidx.appcompat.widget.AppCompatImageView-->
+<!--            android:id="@+id/img_add_favorite"-->
+<!--            android:layout_width="@dimen/_30sdp"-->
+<!--            android:layout_height="@dimen/_30sdp"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginStart="@dimen/_14sdp"-->
+<!--            android:layout_marginEnd="@dimen/_14sdp"-->
+<!--            android:src="@drawable/custom_drawable_favorite" />-->
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_add_cart"

@@ -49,7 +49,7 @@
     <string name="shipping_method">Phương pháp vận chuyển</string>
     <string name="pay_method">Phương thức thanh toán</string>
     <string name="direct_payment">Thanh toán trực tiếp</string>
-    <string name="momo_payment">Thanh toán qua ví momo</string>
+    <string name="zalo_payment">Thanh toán qua ví zalo</string>
     <string name="describe">Mô tả</string>
     <string name="detail">Chi tiết</string>
     <string name="all">Tất cả</string>

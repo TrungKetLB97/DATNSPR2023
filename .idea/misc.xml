@@ -80,6 +80,7 @@
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/dialog_question.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_home_product.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_men_product.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_notification.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_producg.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_product.xml" value="0.15081521739130435" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/fragment_receipt.xml" value="0.20512820512820512" />
@@ -94,6 +95,7 @@
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_delivery_address.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_detail_product.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_itemized_receipt.xml" value="0.20512820512820512" />
+        <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_notification.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_pay_product.xml" value="0.536" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_product.xml" value="0.20512820512820512" />
         <entry key="..\:/Users/Public/DATNSPR2023/app/src/main/res/layout/item_receipt.xml" value="0.264" />

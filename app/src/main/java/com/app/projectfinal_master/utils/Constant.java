@@ -11,6 +11,8 @@ public class Constant {
     public static final String CATEGORIES = "https://incumbent-cork.000webhostapp.com/getCategories.php";
     public static final String ADDRESS = "https://incumbent-cork.000webhostapp.com/getAddress.php";
     public static final String INSERT_ADDRESS = "https://incumbent-cork.000webhostapp.com/insertDeliveryAddress.php";
+    public static final String INSERT_NOTIFICATION = "https://incumbent-cork.000webhostapp.com/insertNotification.php";
+    public static final String GET_NOTIFICATION = "https://incumbent-cork.000webhostapp.com/getNotification.php";
     public static final String CART = "https://incumbent-cork.000webhostapp.com/getCarts.php";
     public static final String SIZE = "https://incumbent-cork.000webhostapp.com/getSize.php";
     public static final String COLOR = "https://incumbent-cork.000webhostapp.com/getColor.php";

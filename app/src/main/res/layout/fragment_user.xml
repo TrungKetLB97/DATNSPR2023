@@ -324,16 +324,7 @@
                 android:text="Thêm mục yêu thích vào danh sách mong muốn
 của bạn ngay bây giờ" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                style="@style/DefaultText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="@dimen/_24sdp"
-                android:background="@drawable/bg_stroke_border_1_un_selected"
-                android:padding="@dimen/_16sdp"
-                android:text="Đi mua sắm"
-                android:textAllCaps="false" />
+<!--            <androidx.appcompa0-->
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

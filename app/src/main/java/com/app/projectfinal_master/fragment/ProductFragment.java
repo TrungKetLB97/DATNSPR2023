@@ -229,7 +229,6 @@ public class ProductFragment extends Fragment {
                                 JSONObject object = array.getJSONObject(i);
                                 int idCategory = object.getInt("id_category");
                                 String categoryTitle = object.getString("category");
-                                Log.e("TAG", "onResponse: "+ categoryTitle);
                                 String sex = object.getString("sex");
                                 String image = object.getString("image");
 
