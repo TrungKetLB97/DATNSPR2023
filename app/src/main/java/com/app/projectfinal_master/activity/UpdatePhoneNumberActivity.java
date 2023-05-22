@@ -114,7 +114,7 @@ public class UpdatePhoneNumberActivity extends AppCompatActivity {
         });
     }
 
-    public void updateUsername(Context context, String idUser, String phoneNumber) {
+    public void updateUsername(Context context, String idUser, String username) {
         mStringRequest = new StringRequest(Request.Method.POST,
                 UPDATE_PHONE_NUMBER, new Response.Listener<String>() {
             @Override
@@ -127,7 +127,7 @@ public class UpdatePhoneNumberActivity extends AppCompatActivity {
                     if (success == 1) {
 //                        mProgress.setVisibility(View.GONE);
                         user = DataLocalManager.getUser();
-                        user.setPhone_number(phoneNumber);
+                        user.setUsername(username);
                         DataLocalManager.setUser(user);
                         Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 //                        finish();
@@ -153,7 +153,7 @@ public class UpdatePhoneNumberActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
                 params.put("id_user", idUser);
-                params.put("phone_number", phoneNumber);
+                params.put("username", username);
                 return params;
             }
         };
