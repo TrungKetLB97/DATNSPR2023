@@ -18,6 +18,7 @@ public class DataLocalManager {
     public static final String PREF_OBJECT_USER = "PREF_OBJECT_USER";
     public static final String PREF_OBJECT_CART = "PREF_OBJECT_CART";
     public static final String PREF_OBJECT_CARTS = "PREF_OBJECT_CARTS";
+    public static final String PREF_OBJECT_METHOD = "PREF_OBJECT_METHOD";
     public static DataLocalManager instance;
     public MySharedPreferences mySharedPreferences;
 
@@ -106,5 +107,17 @@ public class DataLocalManager {
 
     public static void removeDataUser() {
         DataLocalManager.getInstance().mySharedPreferences.removeData(PREF_OBJECT_USER);
+    }
+
+    public static void setPayMethodDefault(String method) {
+        DataLocalManager.getInstance().mySharedPreferences.putStringValue(PREF_OBJECT_METHOD, method);
+    }
+
+    public static String getPayMethodDefault() {
+        return DataLocalManager.getInstance().mySharedPreferences.getStringValue(PREF_OBJECT_METHOD);
+    }
+
+    public static void removePayMethodDefault() {
+        DataLocalManager.getInstance().mySharedPreferences.removeData(PREF_OBJECT_METHOD);
     }
 }

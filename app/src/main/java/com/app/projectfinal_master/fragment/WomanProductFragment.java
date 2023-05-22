@@ -50,11 +50,12 @@ public class WomanProductFragment extends Fragment {
     private final Handler sliderHandler = new Handler();
 
     private Product product;
-    private List<Product> products, newProducts, saleProducts;
+    private List<Product> products = new ArrayList<>();
+    private List<Product> saleProducts = new ArrayList<>();
     private List<Category> categories;
-    private RecyclerView rcvCategories, rcvNewProducts, rcvSaleProducts;
+    private RecyclerView rcvCategories, rcvBestProducts, rcvSaleProducts;
     private RecyclerView.Adapter productAdapter, categoryAdapter;
-    private RecyclerView.LayoutManager newProductLayout, categoryLayout, saleProductLayout;
+    private RecyclerView.LayoutManager bestProductLayout, categoryLayout, saleProductLayout;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -64,9 +65,9 @@ public class WomanProductFragment extends Fragment {
         initView();
         setListSliderItemTest();
         setDataIndicator();
-//        setRcvSaleProductList();
-//        setRcvCategories();
-
+        setRcvCategories();
+        setRcvBestProductList();
+        setRcvSaleProductList();
         return view;
     }
 
@@ -75,7 +76,7 @@ public class WomanProductFragment extends Fragment {
         indicator = view.findViewById(R.id.indicator);
 
         rcvCategories = view.findViewById(R.id.rcv_category);
-        rcvNewProducts = view.findViewById(R.id.rcv_best_product);
+        rcvBestProducts = view.findViewById(R.id.rcv_best_product);
         rcvSaleProducts = view.findViewById(R.id.rcv_recommend_products);
     }
 
@@ -106,16 +107,16 @@ public class WomanProductFragment extends Fragment {
 
     private void setRcvCategories() {
         categoryAdapter = new CategoryAdapter(getContext(), categories);
-        categoryLayout = new GridLayoutManager(getContext(), 1, GridLayoutManager.HORIZONTAL, false);
+        categoryLayout = new GridLayoutManager(getContext(), 2, GridLayoutManager.HORIZONTAL, false);
         rcvCategories.setLayoutManager(categoryLayout);
         rcvCategories.setAdapter(categoryAdapter);
     }
 
-    private void setRcvNewProductList() {
-        productAdapter = new ProductAdapter(getContext(), newProducts);
-        newProductLayout = new GridLayoutManager(getContext(), 2);
-        rcvNewProducts.setLayoutManager(newProductLayout);
-        rcvNewProducts.setAdapter(productAdapter);
+    private void setRcvBestProductList() {
+        productAdapter = new ProductAdapter(getContext(), products);
+        bestProductLayout = new GridLayoutManager(getContext(), 2);
+        rcvBestProducts.setLayoutManager(bestProductLayout);
+        rcvBestProducts.setAdapter(productAdapter);
     }
 
     private void setRcvSaleProductList() {
@@ -128,10 +129,10 @@ public class WomanProductFragment extends Fragment {
     private void setListSliderItemTest() {
         List<SliderItem> sliderItems = new ArrayList<>();
         sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test1));
-        sliderItems.add(new SliderItem(R.drawable.test2));
-        sliderItems.add(new SliderItem(R.drawable.test3));
-        sliderItems.add(new SliderItem(R.drawable.test4));
+        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.test));
 
         setDataViewPager(sliderItems);
     }

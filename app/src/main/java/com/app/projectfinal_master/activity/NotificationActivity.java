@@ -3,6 +3,7 @@ package com.app.projectfinal_master.activity;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -11,62 +12,55 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.app.projectfinal_master.R;
 
 import com.app.projectfinal_master.utils.NotificationPublisher;
 
-public class NotificationActivity extends Activity {
+public class NotificationActivity extends AppCompatActivity {
+
+    private static final int NOTIFICATION_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delivery_address);
-        scheduleNotification(getNotification("5 second delay"), 100);
+//        scheduleNotification(this, );
+
+        Button btn_add = findViewById(R.id.btn_add);
+        btn_add.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getNotification("5 second delay");
+            }
+        });
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_notification, menu);
-        return true;
-    }
+    public void scheduleNotification(Context context, Notification notification) {
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_5:
-                scheduleNotification(getNotification("5 second delay"), 5000);
-                return true;
-            case R.id.action_10:
-                scheduleNotification(getNotification("10 second delay"), 10000);
-                return true;
-            case R.id.action_30:
-                scheduleNotification(getNotification("30 second delay"), 30000);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-    private void scheduleNotification(Notification notification, int delay) {
-
-        Intent notificationIntent = new Intent(this, NotificationPublisher.class);
+        Intent notificationIntent = new Intent(context, NotificationPublisher.class);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION_ID, 1);
         notificationIntent.putExtra(NotificationPublisher.NOTIFICATION, notification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
-        long futureInMillis = SystemClock.elapsedRealtime() + delay;
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+            notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
-    private Notification getNotification(String content) {
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle("Scheduled Notification");
-        builder.setContentText(content);
-        builder.setSmallIcon(R.drawable.ic_add_favorite);
-        return builder.build();
+    private void getNotification(String content) {
+        Notification notification = new Notification.Builder(this)
+        .setContentTitle("Scheduled Notification")
+        .setContentText(content)
+        .setSmallIcon(R.drawable.ic_add_favorite).build();
+//        return builder.build();
+        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+        if (notificationManager != null)
+            notificationManager.notify(NOTIFICATION_ID, notification);
     }
 
 }
