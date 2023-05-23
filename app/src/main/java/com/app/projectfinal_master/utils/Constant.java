@@ -22,6 +22,7 @@ public class Constant {
     public static final String RECEIPT = "https://incumbent-cork.000webhostapp.com/getReceipt.php";
     public static final String ITEMIZED_RECEIPT = "https://incumbent-cork.000webhostapp.com/getItemizedReceipt.php";
     public static final String CREATE_RECEIPT = "https://incumbent-cork.000webhostapp.com/createReceipt.php";
+    public static final String UPDATE_PRODUCT = "https://incumbent-cork.000webhostapp.com/updateProduct.php";
     public static final String UPDATE_USERNAME = "https://incumbent-cork.000webhostapp.com/updateUsername.php";
     public static final String UPDATE_EMAIL = "https://incumbent-cork.000webhostapp.com/updateEmail.php";
     public static final String UPDATE_PHONE_NUMBER = "https://incumbent-cork.000webhostapp.com/updatePhoneNumber.php";

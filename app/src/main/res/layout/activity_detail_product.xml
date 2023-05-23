@@ -260,9 +260,42 @@
                     android:layout_below="@+id/layout_describe"
                     android:background="@color/gray_dark" />
 
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/layout_quantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/line_2"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+
+                    <TextView
+                        android:id="@+id/tv_quantity_title"
+                        style="@style/ContainerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/background"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@string/quantity"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_14sdp" />
+
+                    <TextView
+                        android:id="@+id/tv_quantity"
+                        style="@style/DefaultText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@color/background"
+                        android:padding="@dimen/_8sdp"
+                        android:textAlignment="viewEnd"
+                        android:textSize="@dimen/_12sdp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
                 <TextView
                     android:id="@+id/tv_comment"
                     style="@style/ContainerText"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/line_2"
@@ -277,6 +310,7 @@
                     android:id="@+id/ll_rate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:layout_below="@+id/tv_comment">
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -320,6 +354,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcv_comment"
                     android:layout_width="match_parent"
+                    android:visibility="gone"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_rate" />
 

@@ -89,7 +89,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private RecyclerView.Adapter sizeAdapter, colorAdapter;
     private RecyclerView.LayoutManager sizeLayout, colorLayout;
 
-    private TextView tvName, tvPrice, tvDescribeContent;
+    private TextView tvName, tvPrice, tvDescribeContent, tvQuantity;
     private Button btnAddCart;
     private EditText edtSearch;
     private ImageView imgAddFavorite, imgReturn, imgViewAnim, imgStartAnim, imgBack;
@@ -115,6 +115,7 @@ public class DetailProductActivity extends AppCompatActivity {
     private void initView() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         tvName = (TextView) findViewById(R.id.tv_product_name);
+        tvQuantity = (TextView) findViewById(R.id.tv_quantity);
         edtSearch = findViewById(R.id.edt_search);
         tvPrice = (TextView) findViewById(R.id.tv_price);
         viewPager2 = (ViewPager2) findViewById(R.id.vp2_img_details);
@@ -330,6 +331,7 @@ public class DetailProductActivity extends AppCompatActivity {
                         getColor(context, idColor);
                         detailProduct = new Product(codeProduct, idColor, idSize, name, sex, imageThumb, imageLarge, sellingPrice, quantity, rate, description, discount);
                         products.add(detailProduct);
+                        tvQuantity.setText(quantity+" cái");
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

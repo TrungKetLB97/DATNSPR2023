@@ -2,6 +2,7 @@ package com.app.projectfinal_master.activity;
 
 import static com.app.projectfinal_master.utils.Constant.ADDRESS;
 import static com.app.projectfinal_master.utils.Constant.CREATE_RECEIPT;
+import static com.app.projectfinal_master.utils.Constant.UPDATE_PRODUCT;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -238,6 +239,7 @@ public class PayActivity extends AppCompatActivity {
                 ZaloPaySDK.getInstance().payOrder(PayActivity.this, token, "demozpdk://app", new PayOrderListener() {
                     @Override
                     public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
+                        Log.e("TAG", "onPaymentSucceeded: " );
 //                        runOnUiThread(new Runnable() {
 //                            @Override
 //                            public void run() {
@@ -251,34 +253,37 @@ public class PayActivity extends AppCompatActivity {
 //                                        })
 //                                        .setNegativeButton("Cancel", null).show();
 //                            }
-//
 //                        });
+                        callApiCreateReceipt(PayActivity.this);
+                        DataLocalManager.removeDataCarts();
                     }
 
                     @Override
                     public void onPaymentCanceled(String zpTransToken, String appTransID) {
-//                        new AlertDialog.Builder(PayActivity.this)
-//                                .setTitle("User Cancel Payment")
-//                                .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
-//                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                    }
-//                                })
-//                                .setNegativeButton("Cancel", null).show();
+                        Log.e("TAG", "onPaymentSucceeded: " );
+                        new AlertDialog.Builder(PayActivity.this)
+                                .setTitle("User Cancel Payment")
+                                .setMessage(String.format("zpTransToken: %s \n", zpTransToken))
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .setNegativeButton("Cancel", null).show();
                     }
 
                     @Override
                     public void onPaymentError(ZaloPayError zaloPayError, String zpTransToken, String appTransID) {
-//                        new AlertDialog.Builder(PayActivity.this)
-//                                .setTitle("Payment Fail")
-//                                .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
-//                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                    }
-//                                })
-//                                .setNegativeButton("Cancel", null).show();
+                        Log.e("TAG", "onPaymentSucceeded: " );
+                        new AlertDialog.Builder(PayActivity.this)
+                                .setTitle("Payment Fail")
+                                .setMessage(String.format("ZaloPayErrorCode: %s \nTransToken: %s", zaloPayError.toString(), zpTransToken))
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                    }
+                                })
+                                .setNegativeButton("Cancel", null).show();
                     }
                 });
             }
@@ -493,15 +498,59 @@ public class PayActivity extends AppCompatActivity {
         return params;
     }
 
+    private void callApiUpdateProduct(Context context, String codeProduct, int idColor, int idSize, int quantity) {
+        progressBar.setVisibility(View.VISIBLE);
+        StringRequest mStringRequest = new StringRequest(Request.Method.POST, UPDATE_PRODUCT, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                progressBar.setVisibility(View.GONE);
+                try {
+                    JSONObject object = new JSONObject(response);
+                    String message = object.getString("message");
+                    int success = object.getInt("success");
+                    if (success == 1) {
+                        startActivity(new Intent(PayActivity.this, OrderSuccessActivity.class));
+                        finish();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+//                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                progressBar.setVisibility(View.GONE);
+//                Toast.makeText(context, "Đặt hàng thất bại. Xin thử lại sau.", Toast.LENGTH_SHORT).show();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("code_product", codeProduct);
+                params.put("id_color", String.valueOf(idColor));
+                params.put("id_size", String.valueOf(idSize));
+                params.put("quantity", String.valueOf(quantity));
+                return params;
+            }
+        };
+
+        mStringRequest.setShouldCache(false);
+        VolleySingleton.getInstance(context).getRequestQueue().add(mStringRequest);
+    }
+
     private String createItemizedReceipt() {
         List<ItemizedReceipt> itemizedReceipts = new ArrayList<>();
         for (Cart cart :
                 carts) {
+            callApiUpdateProduct(this, cart.getProduct().getCodeProduct(), cart.getIdColor(), cart.getIdSize(), cart.getQuantity());
             ItemizedReceipt itemizedReceipt = new ItemizedReceipt(cart.getProduct().getCodeProduct(), cart.getProduct().getIdColor(), cart.getProduct().getIdSize(), cart.getQuantity(), cart.getProduct().getSellingPrice());
             itemizedReceipts.add(itemizedReceipt);
         }
         return new Gson().toJson(itemizedReceipts);
     }
+
+
 
     ActivityResultLauncher<Intent> someActivityResultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),

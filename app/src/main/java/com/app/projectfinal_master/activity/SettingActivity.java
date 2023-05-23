@@ -18,6 +18,7 @@ import com.android.volley.toolbox.ClearCacheRequest;
 import com.app.projectfinal_master.R;
 import com.app.projectfinal_master.data.DataLocalManager;
 import com.app.projectfinal_master.utils.ICallbackActivity;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 
 public class SettingActivity extends AppCompatActivity {
@@ -35,6 +36,7 @@ public class SettingActivity extends AppCompatActivity {
         setEventClickProfile();
         eventClickBackImg();
         setOnClickButtonSignOut();
+        setEventClickIntroduce();
     }
 
     private void initView() {
@@ -113,7 +115,7 @@ public class SettingActivity extends AppCompatActivity {
         tvIntroduce.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                someActivityResultLauncher.launch(new Intent(SettingActivity.this, IntroActivity.class));
             }
         });
     }
@@ -126,7 +128,8 @@ public class SettingActivity extends AppCompatActivity {
                 Intent intent = new Intent(SettingActivity.this, HomeActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
+//                finish();
+                ProcessPhoenix.triggerRebirth(SettingActivity.this);
             }
         });
     }

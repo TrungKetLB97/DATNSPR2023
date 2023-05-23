@@ -10,6 +10,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -215,7 +217,8 @@ public class CartActivity extends AppCompatActivity {
                 chose = 0;
             else
                 chose = 1;
-            callApiUpdateItemCart(CartActivity.this, cart.getProduct().getCodeProduct(), cart.getProduct().getIdColor(), cart.getProduct().getIdSize(), cart.getQuantity(), chose);
+            if(DataLocalManager.getUser() != null)
+                callApiUpdateItemCart(CartActivity.this, cart.getProduct().getCodeProduct(), cart.getProduct().getIdColor(), cart.getProduct().getIdSize(), cart.getQuantity(), chose);
         }
     };
 
@@ -244,11 +247,7 @@ public class CartActivity extends AppCompatActivity {
         btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (DataLocalManager.getUser() == null) {
-                    someActivityResultLauncher.launch(new Intent(CartActivity.this, MainActivity.class));
-                } else {
-                    someActivityResultLauncher.launch(new Intent(CartActivity.this, HomeActivity.class));
-                }
+                someActivityResultLauncher.launch(new Intent(CartActivity.this, HomeActivity.class));
                 finish();
             }
         });

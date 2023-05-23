@@ -208,7 +208,7 @@ public class ProductFragment extends Fragment {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Đường truyền bị gián đoạn", Toast.LENGTH_LONG).show();
             }
         });
         stringRequest.setShouldCache(false);

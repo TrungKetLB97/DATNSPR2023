@@ -51,6 +51,7 @@
     <string name="direct_payment">Thanh toán trực tiếp</string>
     <string name="zalo_payment">Thanh toán qua ví zalo</string>
     <string name="describe">Mô tả</string>
+    <string name="quantity">Số lượng</string>
     <string name="detail">Chi tiết</string>
     <string name="all">Tất cả</string>
     <string name="evaluate">Đánh giá</string>

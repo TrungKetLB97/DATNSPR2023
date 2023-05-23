@@ -50,7 +50,6 @@ public class SplashActivity extends AppCompatActivity {
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
-
                     startActivity(new Intent(SplashActivity.this, HomeActivity.class));
                     finish();
                 }
@@ -82,24 +81,30 @@ public class SplashActivity extends AppCompatActivity {
             public void onResponse(String response) {
                 try {
                     JSONObject objData = new JSONObject(response);
-                    JSONArray array = objData.getJSONArray("data");
+                    int success = objData.getInt("success");
+                    String message = objData.getString("message");
+                    Toast.makeText(SplashActivity.this,message,Toast.LENGTH_SHORT).show();
+                    if (success == 1) {
+                        JSONArray array = objData.getJSONArray("data");
 
-                    for (int i = 0; i < array.length(); i++) {
-                        JSONObject object = array.getJSONObject(i);
+                        for (int i = 0; i < array.length(); i++) {
+                            JSONObject object = array.getJSONObject(i);
 
-                        String idUser = object.getString("id_user");
-                        String email = object.getString("email");
-                        String password = object.getString("password");
-                        String username = object.getString("username");
-                        String phoneNumber = object.getString("phone_number");
-                        String address = object.getString("address");
-                        String birth = object.getString("birth");
-                        String sex = object.getString("sex");
+                            String idUser = object.getString("id_user");
+                            String email = object.getString("email");
+                            String password = object.getString("password");
+                            String username = object.getString("username");
+                            String phoneNumber = object.getString("phone_number");
+                            String address = object.getString("address");
+                            String birth = object.getString("birth");
+                            String sex = object.getString("sex");
 
-                        User user = new User(idUser, email, password, username, phoneNumber, address, birth, sex);
-                        DataLocalManager.setUser(user);
+                            User user = new User(idUser, email, password, username, phoneNumber, address, birth, sex);
+                            DataLocalManager.setUser(user);
+                        }
+                    } else {
+                        DataLocalManager.removeDataUser();
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
 //                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();

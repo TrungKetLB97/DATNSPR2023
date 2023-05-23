@@ -88,11 +88,11 @@ public class HomeProductFragment extends Fragment {
 
     private void setListSliderItemTest() {
         List<SliderItem> sliderItems = new ArrayList<>();
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
-        sliderItems.add(new SliderItem(R.drawable.test));
+        sliderItems.add(new SliderItem(R.drawable.banner_1));
+        sliderItems.add(new SliderItem(R.drawable.banner_2));
+        sliderItems.add(new SliderItem(R.drawable.banner_3));
+        sliderItems.add(new SliderItem(R.drawable.banner_4));
+        sliderItems.add(new SliderItem(R.drawable.banner_5));
 
         setDataViewPager(sliderItems);
     }

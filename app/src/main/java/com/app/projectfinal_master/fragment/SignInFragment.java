@@ -97,17 +97,20 @@ public class SignInFragment extends Fragment {
             public void onResponse(String response) {
                 progressBar.setVisibility(View.GONE);
                 try {
+                    Log.e("TAG", "onResponse: "+response );
                     JSONObject objData = new JSONObject(response);
                     int success = objData.getInt("success");
                     String message = objData.getString("message");
                     if (success == 0) {
                         progressBar.setVisibility(View.GONE);
                         signUpGoogleAccount(email, username, 1);
+                        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
                     } else if (success == 2) {
                         progressBar.setVisibility(View.GONE);
                         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                     } else {
                         progressBar.setVisibility(View.GONE);
+                        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
                         JSONArray array = objData.getJSONArray("data");
                         for (int i = 0; i < array.length(); i++) {
                             JSONObject object = array.getJSONObject(i);
@@ -129,7 +132,7 @@ public class SignInFragment extends Fragment {
                 } catch (JSONException e) {
                     progressBar.setVisibility(View.GONE);
                     e.printStackTrace();
-//                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),e.toString(),Toast.LENGTH_SHORT).show();
                 }
             }
         }, new Response.ErrorListener() {
@@ -159,6 +162,7 @@ public class SignInFragment extends Fragment {
             @Override
             public void onResponse(String response) {
                 try {
+                    Log.e("TAG", "onResponse: "+response );
                     JSONObject jsonObject = new JSONObject(response);
                     int success = jsonObject.getInt("success");
                     String message = jsonObject.getString("message");

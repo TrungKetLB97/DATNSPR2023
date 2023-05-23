@@ -21,6 +21,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -60,6 +61,8 @@ public class DeliveryAddressActivity extends AppCompatActivity {
     private AppCompatButton btnAdd;
     private ImageView imgBack;
 
+    private TextView tvEmpty;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +72,7 @@ public class DeliveryAddressActivity extends AppCompatActivity {
         setViewRcv();
         setOnClickAddButton();
         callApiGetDeliveryAddress(DeliveryAddressActivity.this);
+
     }
 
     private void initView() {
@@ -76,6 +80,7 @@ public class DeliveryAddressActivity extends AppCompatActivity {
         btnAdd = findViewById(R.id.btn_add);
         imgBack = findViewById(R.id.img_back);
         progressBar = findViewById(R.id.progress);
+        tvEmpty = findViewById(R.id.tv_empty);
     }
 
     private void eventClickBackImg() {
@@ -106,9 +111,14 @@ public class DeliveryAddressActivity extends AppCompatActivity {
     }
 
     private void addItem(Address address) {
-        List<Address> addressList = new ArrayList<>();
-        addressList.add(address);
+        addressList = new ArrayList<>();
+        this.addressList.add(address);
+//        List<Address> addressList = new ArrayList<>();
+//        addressList.add(address);
         deliveryAddressAdapter.submitList(addressList);
+        if (addressList.size() > 0) {
+            tvEmpty.setVisibility(View.GONE);
+        }
     }
 
     private final ICallbackActivity iCallbackActivity = new ICallbackActivity() {

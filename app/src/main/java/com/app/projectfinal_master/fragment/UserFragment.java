@@ -74,7 +74,12 @@ public class UserFragment extends Fragment {
         layoutReceipt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                someActivityResultLauncher.launch(new Intent(getActivity(), ReceiptActivity.class));
+                if (DataLocalManager.getUser() != null) {
+                    intent = new Intent(getActivity(), ReceiptActivity.class);
+                } else {
+                    intent = new Intent(getContext(), MainActivity.class);
+                }
+                someActivityResultLauncher.launch(intent);
             }
         });
     }
@@ -94,7 +99,8 @@ public class UserFragment extends Fragment {
             tvNameUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    someActivityResultLauncher.launch(new Intent(getActivity(), MainActivity.class));
+                    if (DataLocalManager.getUser() == null)
+                        someActivityResultLauncher.launch(new Intent(getActivity(), MainActivity.class));
                 }
             });
         }
@@ -120,7 +126,11 @@ public class UserFragment extends Fragment {
                 someActivityResultLauncher.launch(intent);
                 break;
             case R.id.act_settings:
-                intent = new Intent(getContext(), SettingActivity.class);
+                if (DataLocalManager.getUser() != null) {
+                    intent = new Intent(getContext(), SettingActivity.class);
+                } else {
+                    intent = new Intent(getContext(), MainActivity.class);
+                }
                 someActivityResultLauncher.launch(intent);
                 break;
             default:

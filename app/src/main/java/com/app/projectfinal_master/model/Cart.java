@@ -19,6 +19,22 @@ public class Cart implements Serializable {
         this.quantity = quantity;
     }
 
+    public int getIdColor() {
+        return idColor;
+    }
+
+    public void setIdColor(int idColor) {
+        this.idColor = idColor;
+    }
+
+    public int getIdSize() {
+        return idSize;
+    }
+
+    public void setIdSize(int idSize) {
+        this.idSize = idSize;
+    }
+
     public boolean isChose() {
         return isChose;
     }

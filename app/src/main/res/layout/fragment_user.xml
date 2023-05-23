@@ -51,6 +51,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_username"
+                    android:visibility="gone"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:layout_marginBottom="@dimen/_8sdp"
                     android:layout_weight="3"
@@ -191,6 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginBottom="@dimen/_8sdp"
+                android:visibility="gone"
                 android:layout_weight="3"
                 android:orientation="horizontal">
 
@@ -303,6 +305,8 @@
             android:id="@+id/layout_empty_favorite"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginTop="@dimen/_24sdp"
             android:orientation="vertical">
 
@@ -324,7 +328,6 @@
                 android:text="Thêm mục yêu thích vào danh sách mong muốn
 của bạn ngay bây giờ" />
 
-<!--            <androidx.appcompa0-->
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 

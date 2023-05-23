@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="16dp"
+    android:background="@drawable/custom_bg_dialog_white"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_title_dialog"
+        style="@style/ContainerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/custom_bg_dialog_blue"
+        android:backgroundTint="#FBF2F2"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="Số lượng"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_14sdp" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til_quantity"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/img_search"
+            android:layout_toEndOf="@+id/img_back"
+            android:textColorHint="@color/gray_dark"
+            app:boxBackgroundColor="@color/white"
+            app:boxCornerRadiusBottomEnd="@dimen/_4sdp"
+            app:boxCornerRadiusBottomStart="@dimen/_4sdp"
+            app:boxCornerRadiusTopEnd="@dimen/_4sdp"
+            app:boxCornerRadiusTopStart="@dimen/_4sdp"
+            app:hintTextColor="@color/black"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_quantity"
+                style="@style/DefaultText"
+                android:layout_width="match_parent"
+                android:textIsSelectable="true"
+                app:textInputLayoutFocusedRectEnabled="true"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColorHint="@color/black"
+                android:gravity="center"
+                android:textDirection="ltr"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_12sdp" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_cancel"
+                style="@style/DefaultText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:alpha="0.4"
+                android:background="@drawable/custom_bg_btn_gray"
+                android:text="Quay lại"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_10sdp" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_accept"
+                style="@style/DefaultText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/custom_bg_btn_blue"
+                android:backgroundTint="@color/pink_light"
+                android:text="Đồng ý"
+                android:textAllCaps="false"
+                android:textSize="@dimen/_10sdp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</LinearLayout>

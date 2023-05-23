@@ -59,7 +59,8 @@ public class NotificationFragment extends Fragment {
 
         initView();
         setViewRcv();
-        callApiGetNotification();
+        if (DataLocalManager.getUser() != null)
+            callApiGetNotification();
         return view;
     }
 
